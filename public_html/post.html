@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- 
+Noel Martin Poothokaran
+CSC 337: PA8 - OSTAA
+This page is the html page for Ostaa.
+It demonstrates some basic html features, along with some 
+css customization. It uses forms, divs (using css),etc.
+It uses Javascript, and AJAX to enable the store
+management system.
+ -->
+<html lang="en">
+
+<head>
+    <title>OSTAA</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/stylePost.css" type="text/css">
+</head>
+
+<body>
+    <div id="header">Ostaa</div>
+
+    <div id="center">
+        <div class="line">
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title" value="">
+        </div>
+
+        <div class="line">
+            <label for="desc">Description: </label>
+            <input type="text" id="desc" name="desc" value="">
+        </div>
+
+        <div class="line">
+            <label for="price">Price: </label>
+            <input type="text" id="price" name="price" value="">
+        </div>
+
+        <div class="line">
+            <label for="status">Status: </label>
+            <input type="text" id="status" name="status" value="">
+        </div>
+
+        <div class="line">
+            <label for="image">Upload Image: </label>
+            <input type="file" accept="image/*" id="img" >
+        </div>
+
+
+        <div>
+            <button type="send" id="post_item">Create Post</button>
+        </div>
+
+    </div>
+    <script src="js/functionPost.js"></script>
+
+</body>
+
+</html>

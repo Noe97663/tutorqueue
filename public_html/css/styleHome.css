@@ -1,0 +1,114 @@
+/* 
+Noel Martin Poothokaran
+CSC 337: PA8 - OSTAA
+This css file contains the CSS customization for 
+the OSTAA project.
+This css file contains minimal styling.
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+input{
+    background-color: white;
+    border: solid black 1px;
+    margin:20px;
+    height:30px;
+}
+
+h1{
+    font-size: 30px;
+    margin: 10px;
+}
+
+button{
+    background-color: skyblue;
+    color:black;
+    border: solid white 2px;
+    padding:5px;
+    height: 40px;
+    width: 200px;
+    margin:10px;
+}
+
+img{
+    height:170px;
+    width:170px;
+    border: solid 4px white;
+
+}
+
+#header{
+    color:blue;
+    background-color: grey;
+    height:15vh;
+    text-align: center;
+    font-size: 75px;
+
+    display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+#left{
+    margin:10px;
+    border: solid black 1px;
+    position: fixed;
+    width:48%;
+    height:80vh;
+    background-color:lightgray;
+    text-align: center;
+
+    display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+
+}
+
+#right{
+    margin:10px;
+    border: solid black 1px;
+    position: fixed;
+    width:49%;
+    height:80vh;
+    left:50% ;
+    margin-left: 0;
+    background-color:lightgray;
+    overflow: auto;
+
+  text-align: center;
+}
+
+.item{
+    border: solid 2px black;
+    margin:20px;
+    min-width: 0;
+}
+
+.title{
+    font-weight: 600;
+}
+
+.price{
+    color: blue;
+}
+
+.input_field{
+    padding-top: 25px;
+    padding-left:30px;
+    font-size: 20px;
+}
+
+.line{
+    margin:10px;
+    font-size: 20px;
+}
