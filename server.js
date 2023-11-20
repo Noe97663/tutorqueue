@@ -17,20 +17,17 @@ mongoose.connection.on("error", () => {
 let Schema = mongoose.Schema;
 const StudentSchema = new Schema({
     name: String,
+    email: String,
     password: String,
-    isTutor: Boolean
+    salt: String,
+    tutorID: Number
 });
 
 const TutorSchema = new Schema({
-    name: String,
-    password: String,
+    tutorID: Number,
     tutorCoordinationRank: Number,
-    studentsHelped: Number
-});
-
-const AdminSchema = new Schema({
-    name: String,
-    password: String
+    studentsHelped: Number,
+    helpInfo: {course: String, hours: Number}
 });
 
 const QueueItemSchema = new Schema({
@@ -45,10 +42,8 @@ const QueueItemSchema = new Schema({
 var Student = mongoose.model("Student", StudentSchema);
 var Tutor = mongoose.model("Tutor", TutorSchema);
 var QueueItem = mongoose.model("QueueItem", QueueItemSchema);
-var AdminItem = mongoose.model("Admin", AdminSchema);
 
 const cookieParser = require("cookie-parser");
-const { Console } = require("console");
 app.use(cookieParser());
 let sessions = {};
 
@@ -104,7 +99,7 @@ app.post("/login/", (req, res) => {
     let type = req.body.type;
     let username = req.body.username;
     let password = req.body.password;
-
+    // Login as student, going to help page
     if (type == "studentType"){
         let findStudent = Student.find({username: username, password: password}).exec();
         findStudent.then((results) =>{
@@ -119,8 +114,8 @@ app.post("/login/", (req, res) => {
                 res.redirect("studentApp/requestHelp.html");
             }
         });
-        
     }   
+    // Login as tutor, going to tutor page
     else if (type == "tutorType"){
         let findTutor = Tutor.find({username: username, password: password}).exec();
         findTutor.then((results) =>{
@@ -136,49 +131,11 @@ app.post("/login/", (req, res) => {
             }
         });
         
-    }
-    else if (type == "adminType"){
-        let findAdmin = Admin.find({username: username, password: password}).exec();
-        findAdmin.then((results) =>{
-            if (results.length == 0){
-                res.status(500).send("Login Failed: incorrect username and/or password");
-            }
-            else{
-                let sid = addSession(username);  
-                res.cookie("login", 
-                {username: username, sessionID: sid}, 
-                {maxAge: 600000 * 2 });
-                res.redirect("adminApp/adminHome.html");
-            }
-        });
-        
-    }
+    }   
     else{
         res.status(500).send("Invalid login");
     }
-    //res.end(JSON.stringify(req.body));
-    // search database for username password combo put promise in p
-    
-    /*
-    let p = 0
-
-    p.then((results) => {
-        if (results.lenght == 0) {
-            res.end("could not find account");
-        } else {
-            console.log("Accound found: creating cookie");
-            let sid = addSession(user.usernname);
-            res.cookie(
-                "login",
-                {username: user.username, sessionID: sid},
-                {maxAge: 600000 * 3600}
-            );
-            res.end("SUCCESS");
-        }
-    });
-    */
 });
-
 
 
 /** Returns the current total queue in FIFO time order */
@@ -196,7 +153,7 @@ app.get("/remove/queueitem/:item", (req, res) =>{
 
 });
 
-/** Returns JSON array of all student items */
+/** Returns JSON array of all student items, which TC can use to choose tutors */
 app.get("/get/students/", (req, res) =>{
 
 });
@@ -205,6 +162,14 @@ app.get("/get/students/", (req, res) =>{
 app.get("/get/tutors/", (req, res) =>{
 
 });
+/** Adds a new Student account to the system */
+app.post("/add/student/", (req, res) =>{
+
+});
+/** Allows TC to assign a student as a tutor */
+app.post("/add/tutor/", (req, res) =>{
+
+})
 
 app.listen(port, () => {
     console.log(`server running on http://${ip}:${port}`);

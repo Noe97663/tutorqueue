@@ -36,6 +36,12 @@ function attemptLogin(){
     })
 }
 
-function createStudentAccount(){
+function createStudentPage(){
     window.location.href = 'studentCreate.html';
+}
+
+function addStudentAccount(){
+    let usernameBox = document.getElementById("newUsername");
+    let passwordBox = document.getElementById("newPassword");
+    let emailBox = document
 }
