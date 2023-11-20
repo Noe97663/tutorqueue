@@ -22,15 +22,18 @@
             <a href="login.html" class="navLink" id="loginLink">Logout</a>
         </div>
 
-        <h2>Create a Student Account</h2>
-        <form id="createAccountForm">
-            <label for="newUsername">Name</label><br>
-            <input type="text" name="newUsername" id="newUsername" required><br>
-            <label for="newEmail">Email</label><br>
-            <input type="text" name="newEmail" id="newEmail" required><br>
-            <label for="newPassword">Password</label><br>
-            <input type="password" name="newPassword" id="newPassword" required><br>
-            <input type="button" value="Create Account" onclick="addStudentAccount()">
-        </form>
+        <div id="mainDiv" class="mainDiv">
+            <h1 class="pageTitle">Create a Student Account</h1>
+            <form id="createAccountForm">
+                <label for="newUsername">Name</label><br>
+                <input type="text" name="newUsername" id="newUsername" required><br>
+                <label for="newEmail">Email</label><br>
+                <input type="text" name="newEmail" id="newEmail" required><br>
+                <label for="newPassword">Password</label><br>
+                <input type="password" name="newPassword" id="newPassword" required><br>
+                <input type="button" value="Create Account" onclick="addStudentAccount()">
+            </form>
+        </div>
+      
     </body>
 </html>

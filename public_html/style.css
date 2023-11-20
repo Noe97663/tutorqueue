@@ -1,11 +1,11 @@
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:0px;
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px;
     background-color: aliceblue;
 }
 
-.siteBanner{
-    position:relative;
+.siteBanner {
+    position: relative;
     top: 0%;
     display: flex;
     flex-direction: row;
@@ -16,6 +16,36 @@ body{
     color: rgb(15, 50, 120);
 }
 
-.siteLogo{
+.navigationBar {
+    position: relative;
+    top: 10%;
+    height: 15%;
+    background-color: rgb(160, 3, 3)
+}
+
+.navLink {
+    color:white;
+    text-decoration: none;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 28px;
+    width: 200px;
+}
+
+a{
+    color:rgb(15, 50, 120);
+    text-decoration: none;
+}
+
+.pageTitle{
+    color: rgb(15, 50, 120);
+}
+
+.mainDiv {
+    padding-left: 24px;
+    color:rgb(82, 82, 82)
+}
+
+.siteLogo {
     height: 100px;
 }
