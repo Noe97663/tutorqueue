@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.static("public_html"));
-//app.use(express.urlencoded());
+app.use(express.urlencoded());
 
 
 let ip = "127.0.0.1";
@@ -123,7 +123,12 @@ app.post("/login/", (req, res) => {
 
 /** Returns the current total queue in FIFO time order */
 app.get("/get/queue/", (req, res) => {
-
+    let findQueueEntires = QueueItem.find({status: "open"});
+    findQueueEntires.then((results) => {
+        res.end(JSON.stringify(results));
+    }).catch((error) => {
+        res.end("something went wrong getting the queue.")
+    })
 });
 
 /** Adds a new queue item to the queue and DB */
@@ -150,7 +155,7 @@ app.post("/add/student/", (req, res) =>{
     let name = req.body.name;
     let email = req.body.email;
     let pass = req.body.password;
-
+    console.log("adding student user")
     let newStudent = new Student({
         name: name,
         email: email,
@@ -167,6 +172,23 @@ app.post("/add/student/", (req, res) =>{
 app.post("/add/tutor/", (req, res) =>{
 
 })
+
+app.post("/student/add/queue", (req, res) => {
+    console.log(req.body);
+    let newHelpRequest = new QueueItem({
+        time: Date.now(),
+        name: req.cookies.login.username,
+        tutor: "none",
+        course: req.body.course,
+        description: req.body.description,
+        status: "open",
+    });
+    return newHelpRequest.save().then((result) => {
+        res.end("successfully added help request.");
+    }).catch((error) => {
+        console.log(error);
+    })
+});
 
 app.get("/get/istutor/", (req,res) =>{
     let isTutor = req.cookies.login.isTutor;
