@@ -96,46 +96,23 @@ setInterval(removeSessions, 2000);
 
 /**Login as a Tutor or Student. If a tutor, send to tutor home page. If Student, send to student home. */
 app.post("/login/", (req, res) => {
-    let type = req.body.type;
     let username = req.body.username;
     let password = req.body.password;
     // Login as student, going to help page
     console.log("User:" + username + " Pass:" + password);
-    if (type == "studentType"){
-        let findStudent = Student.find({name: username, password: password}).exec();
-        findStudent.then((results) =>{
-            if (results.length == 0){
-                res.status(500).send("Login Failed: incorrect username and/or password");
-            }
-            else{
-                /** */
-                let sid = addSession(username);  
-                res.cookie("login", 
-                {username: username, sessionID: sid}, 
-                {maxAge: 600000 * 2 });
-                res.end("/studentApp/requestHelp.html");
-            }
-        });
-    }   
-    // Login as tutor, going to tutor page
-    else if (type == "tutorType"){
-        let findTutor = Tutor.find({name: username, password: password}).exec();
-        findTutor.then((results) =>{
-            if (results.length == 0){
-                res.status(500).send("Login Failed: incorrect username and/or password");
-            }
-            else{
-                let sid = addSession(username);  
-                res.cookie("login", 
-                {username: username, sessionID: sid}, 
-                {maxAge: 600000 * 2 });
-                res.redirect("tutorApp/tutorHome.html");
-            }
-        });
-    }   
-    else{
-        res.status(404).send("Invalid login");
-    }
+    let findStudent = Student.find({name: username, password: password}).exec();
+    findStudent.then((results) =>{
+        if (results.length == 0){
+            res.status(500).send("Login Failed: incorrect username and/or password");
+        }
+        else{
+            let sid = addSession(username);  
+            res.cookie("login", 
+            {username: username, sessionID: sid}, 
+            {maxAge: 600000 * 2 });
+            res.end("/studentApp/requestHelp.html");
+        }
+    });
 });
 
 

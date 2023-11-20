@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Request Help | Tutor Center</title>
+        <title>Request Help</title>
         <link rel="stylesheet" type="text/css" href="../style.css">
     </head>
     <body>
@@ -10,27 +10,37 @@
             <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
             <h1 class="siteHeader"> Computer Science Tutor Queue </h1>
         </div>
+        <div class="navigationBar">
+            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+            <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+            <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+            <a href="../tutorApp/tutorHome.html" class="navLink" id="tutorLink">Tutor Center</a>
+        </div>
         
-        <div id="studentRequestArea"
-        <h1>Request Help</h1>
-        <h2>Please enter your information and then take a seat, someone will help you shortly</h2>
-        <form id="askForHelpForm" action="/student/add/queue">
-            <label for="name">Name</label><br>
-            <input type="text" name="name" id="name"><br>
-            <label for="email">Email</label><br>
-            <input type="email" id="email" name="email"><br>
-            <label for="course">What course do you want tutoring for</label><br>
-            <select id="course" name="course">
-                <option value="CSC110">CSC 110</option>
-                <option value="CSC120">CSC 120</option>
-                <option value="CSC210">CSC 210</option>
-                <option value="CSC144">CSC 144</option>
-                <option value="CSC244">CSC 244</option>
-            </select><br>
-            <label for="description">Description</label><br>
-            <textarea id="description" name="description" rows="4" cols="50" placeholder="Please enter a brief description."></textarea></br>
-            <input type="submit" value="Submit">
-        </form>
+        <div id="studentRequestArea">
+            <h1>Request Help</h1>
+            <h2>Please enter your information and then take a seat, someone will help you shortly</h2>
+            <form id="askForHelpForm" action="/student/add/queue">
+                <!--
+                <label for="name">Name</label><br>
+                <input type="text" name="name" id="name"><br>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email"><br>
+                -->
+                <label for="course">What course do you want tutoring for</label><br>
+                <select id="course" name="course">
+                    <option value="CSC110">CSC 110</option>
+                    <option value="CSC120">CSC 120</option>
+                    <option value="CSC210">CSC 210</option>
+                    <option value="CSC144">CSC 144</option>
+                    <option value="CSC244">CSC 244</option>
+                </select><br>
+                <label for="description">Description</label><br>
+                <textarea id="description" name="description" rows="4" cols="50" placeholder="Please enter a brief description."></textarea></br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
 
         
     </body>
