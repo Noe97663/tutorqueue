@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Tutor Login</title>
-        <link rel="stylesheet" type="text/css" href="../style.css">
-        <script src="loginClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
-        </div>
-        <h2>Tutor Queue Login</h2>
-        
+
+<head>
+    <meta charset="utf-8">
+    <title>Tutor Login</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <script src="loginClient.js"></script>
+</head>
+
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+        <h1 class="siteHeader"></h1>
+    </div>
+
+    <div id="mainDiv" class="mainDiv">
+        <h1 class="pageTitle">Tutor Queue Login</h1>
+
         <!--<form id="loginForm" name="loginForm" action="/login" method="POST">-->
         <form id="loginForm">
             <!--
@@ -32,6 +36,9 @@
         </form>
 
         <h2>Don't have a Student account yet? Sign up</h2>
-        <input type="button" name="createAccountButton" id="createAccountButton" value="Create Account" onclick="createStudentPage()">
-    </body>
+        <input type="button" name="createAccountButton" id="createAccountButton" value="Create Account"
+            onclick="createStudentPage()">
+    </div>
+</body>
+
 </html>

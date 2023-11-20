@@ -29,7 +29,7 @@ window.onload = () =>{
             let navBar = document.getElementById("navigationBar");
             let tutorLink = document.createElement("a");
             tutorLink.href = "../tutorApp/tutorhome.html";
-            tutorLink.class="navLink";
+            tutorLink.className="navLink";
             tutorLink.id="tutorLink";
             tutorLink.innerHTML = "Tutor Center";
             navBar.appendChild(tutorLink);
