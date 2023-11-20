@@ -84,9 +84,9 @@ function removeSessions() {
     let now = Date.now;
     let usernames = Object.keys(sessions);
     for (let i = 0; i < usernames.length; i++) {
-        let last = sessions[username[i]].time;
+        let last = sessions[usernames[i]].time;
         if (last + 20000000 < now) {
-            delete sessions[username[i]];
+            delete sessions[usernames[i]];
         }
     }
 }
@@ -100,24 +100,26 @@ app.post("/login/", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // Login as student, going to help page
+    console.log("User:" + username + " Pass:" + password);
     if (type == "studentType"){
-        let findStudent = Student.find({username: username, password: password}).exec();
+        let findStudent = Student.find({name: username, password: password}).exec();
         findStudent.then((results) =>{
             if (results.length == 0){
                 res.status(500).send("Login Failed: incorrect username and/or password");
             }
             else{
+                /** */
                 let sid = addSession(username);  
                 res.cookie("login", 
                 {username: username, sessionID: sid}, 
                 {maxAge: 600000 * 2 });
-                res.redirect("studentApp/requestHelp.html");
+                res.end("/studentApp/requestHelp.html");
             }
         });
     }   
     // Login as tutor, going to tutor page
     else if (type == "tutorType"){
-        let findTutor = Tutor.find({username: username, password: password}).exec();
+        let findTutor = Tutor.find({name: username, password: password}).exec();
         findTutor.then((results) =>{
             if (results.length == 0){
                 res.status(500).send("Login Failed: incorrect username and/or password");
@@ -130,10 +132,9 @@ app.post("/login/", (req, res) => {
                 res.redirect("tutorApp/tutorHome.html");
             }
         });
-        
     }   
     else{
-        res.status(500).send("Invalid login");
+        res.status(404).send("Invalid login");
     }
 });
 
@@ -164,7 +165,21 @@ app.get("/get/tutors/", (req, res) =>{
 });
 /** Adds a new Student account to the system */
 app.post("/add/student/", (req, res) =>{
+    let name = req.body.name;
+    let email = req.body.email;
+    let pass = req.body.password;
 
+    let newStudent = new Student({
+        name: name,
+        email: email,
+        password: pass,
+        tutorID: -1
+      });
+    return newStudent.save().then((result) => {
+        res.end("Successfully added user.")
+      }).catch((err) => {
+        console.log(err)
+      });
 });
 /** Allows TC to assign a student as a tutor */
 app.post("/add/tutor/", (req, res) =>{

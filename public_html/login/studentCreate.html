@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <title>Create Student Account</title>
         <link rel="stylesheet" type="text/css" href="../style.css">
-        <script src="tutorClient.js"></script>
+        <script src="loginClient.js"></script>
     </head>
     <body>
         <div class="siteBanner">
@@ -21,10 +21,12 @@
 
         <h2>Create a Student Account</h2>
         <form id="createAccountForm">
-            <label for="newUsername">Name</label></br>
-            <input type="text" name="newUsername" id="newUsername" required></br>
-            <label for="newPassword">Password</label></br>
-            <input type="password" name="newPassword" id="newPassword" required></br>
+            <label for="newUsername">Name</label><br>
+            <input type="text" name="newUsername" id="newUsername" required><br>
+            <label for="newEmail">Email</label><br>
+            <input type="text" name="newEmail" id="newEmail" required><br>
+            <label for="newPassword">Password</label><br>
+            <input type="password" name="newPassword" id="newPassword" required><br>
             <input type="button" value="Create Account" onclick="addStudentAccount()">
         </form>
     </body>
