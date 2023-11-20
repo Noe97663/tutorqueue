@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.static("public_html"));
-app.use(express.urlencoded());
+//app.use(express.urlencoded());
 
 
 let ip = "127.0.0.1";
@@ -91,7 +91,8 @@ function removeSessions() {
     }
 }
 
-app.use("/tutor/", authenticate);
+app.use("/tutorApp/", authenticate);
+app.use("/studentApp/", authenticate);
 setInterval(removeSessions, 2000);
 
 /**Login as a Tutor or Student. If a tutor, send to tutor home page. If Student, send to student home. */
@@ -99,16 +100,20 @@ app.post("/login/", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // Login as student, going to help page
-    console.log("User:" + username + " Pass:" + password);
+    
     let findStudent = Student.find({name: username, password: password}).exec();
     findStudent.then((results) =>{
         if (results.length == 0){
             res.status(500).send("Login Failed: incorrect username and/or password");
         }
         else{
+            console.log(results[0].tutorID);
             let sid = addSession(username);  
+            console.log("User: " + username + " Pass:" + password + " TID: " + results[0].tutorID);
+            let isTutor = Number(results[0].tutorID) > -1;
             res.cookie("login", 
-            {username: username, sessionID: sid}, 
+            {username: username, sessionID: sid,
+            isTutor: isTutor}, 
             {maxAge: 600000 * 2 });
             res.end("/studentApp/requestHelp.html");
         }
@@ -161,6 +166,11 @@ app.post("/add/student/", (req, res) =>{
 /** Allows TC to assign a student as a tutor */
 app.post("/add/tutor/", (req, res) =>{
 
+})
+
+app.get("/get/istutor/", (req,res) =>{
+    let isTutor = req.cookies.login.isTutor;
+    res.end(String(isTutor));
 })
 
 app.listen(port, () => {

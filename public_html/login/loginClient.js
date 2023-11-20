@@ -1,7 +1,5 @@
 
 
-const server = "http://127.0.0.1";
-
 
 /** Uses input values to try to log in with given type, username, and password */
 function attemptLogin(){
@@ -13,9 +11,7 @@ function attemptLogin(){
         return;
     }
     
-    let url = server + "/login/";
-    console.log(url);
-    let request = fetch(url, {
+    let request = fetch("/login/", {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
@@ -23,7 +19,7 @@ function attemptLogin(){
             password: passwordBox.value
         })
     });
-    
+
     request.then((response)=>{
         if (response.status == 500){
             loginForm.reset();
@@ -52,8 +48,8 @@ function addStudentAccount(){
         alert("Please fill in required fields");
         return;
     }
-    let url = server + "/add/student/";
-    let request = fetch(url, {
+
+    let request = fetch("/add/student/", {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
