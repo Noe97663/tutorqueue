@@ -33,6 +33,7 @@ const TutorSchema = new Schema({
 const QueueItemSchema = new Schema({
     time: Number,
     student: String,
+    studentEmail: String,
     tutor: String,
     course: String,
     description: String,
@@ -107,13 +108,14 @@ app.post("/login/", (req, res) => {
             res.status(500).send("Login Failed: incorrect username and/or password");
         }
         else{
-            console.log(results[0].tutorID);
-            let sid = addSession(username);  
+            console.log(results[0].email);
+            let sid = addSession(username); 
+            let email = results[0].email;
             console.log("User: " + username + " Pass:" + password + " TID: " + results[0].tutorID);
             let isTutor = Number(results[0].tutorID) > -1;
             res.cookie("login", 
             {username: username, sessionID: sid,
-            isTutor: isTutor}, 
+             email: email, isTutor: isTutor}, 
             {maxAge: 600000 * 2 });
             res.end("/studentApp/requestHelp.html");
         }
@@ -171,23 +173,38 @@ app.post("/add/student/", (req, res) =>{
 /** Allows TC to assign a student as a tutor */
 app.post("/add/tutor/", (req, res) =>{
 
-})
+});
+
+app.get("/remove/cookie/", (req, res) => {
+    res.cookies = null;
+});
 
 app.post("/student/add/queue", (req, res) => {
-    console.log(req.body);
-    let newHelpRequest = new QueueItem({
-        time: Date.now(),
-        name: req.cookies.login.username,
-        tutor: "none",
-        course: req.body.course,
-        description: req.body.description,
-        status: "open",
+    console.log(req.cookies.login.username);
+    let alreadtInQueue = QueueItem.find({studentEmail: req.cookies.login.email, status: "open"}).exec();
+    alreadtInQueue.then((result) => {
+        console.log(result);
+        if (result.length != 0) {
+            res.end("you are already in the queue...")
+        } else {
+            let newHelpRequest = new QueueItem({
+                time: Date.now(),
+                student: req.cookies.login.username,
+                studentEmail: req.cookies.login.email,
+                tutor: "none",
+                course: req.body.course,
+                description: req.body.description,
+                status: "open",
+            });
+            return newHelpRequest.save().then((result) => {
+                res.redirect("/studentApp/studentHome.html");
+                //res.end("successfully added help request.");
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
     });
-    return newHelpRequest.save().then((result) => {
-        res.end("successfully added help request.");
-    }).catch((error) => {
-        console.log(error);
-    })
+    
 });
 
 app.get("/get/istutor/", (req,res) =>{

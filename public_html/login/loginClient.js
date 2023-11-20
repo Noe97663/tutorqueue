@@ -1,4 +1,8 @@
 
+window.onload = (() => {
+    document.cookie = username + "=" +
+      "expires=Thu, 01 Jan 1970 00:00:01 GMT";
+});
 
 
 /** Uses input values to try to log in with given type, username, and password */
