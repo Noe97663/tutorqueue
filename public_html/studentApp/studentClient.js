@@ -4,11 +4,12 @@ function createQueue() {
     p.then((response) => {
         return response.json()
     }).then((response) =>{
-        let tq = document.getElementById("tutorQueue");
+        let tq = document.getElementById("queueViewArea");
         for (let i = 0; i < response.length; i++) {
             let entry = document.createElement("div");
-            entry.innerHTML = response[i].student + response[i].course;
+            entry.innerHTML = response[i].username + " " + response[i].course;
             let helpButton = document.createElement("button");
+            helpButton.textContent = "Help";
             helpButton.onclick = "helpStudent()";
             entry.appendChild(helpButton);
             tq.appendChild(entry);
