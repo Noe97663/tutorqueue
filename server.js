@@ -20,7 +20,7 @@ const StudentSchema = new Schema({
     email: String,
     password: String,
     salt: String,
-    tutorID: Number
+    tutorID: Number,
 });
 
 const TutorSchema = new Schema({
@@ -96,6 +96,35 @@ app.use("/tutorApp/", authenticate);
 app.use("/studentApp/", authenticate);
 setInterval(removeSessions, 2000);
 
+/**
+ * creates an admin for testing 
+ */
+app.get("/create/admin", (req, res) => {
+    let adminTutor = Tutor({
+        tutorID: 0,
+        tutorCoordinationRank: 0,
+        studentsHelped: 0,
+        helpInfo: {},
+    });
+    adminTutor.save().then((result) => {
+        res.send("created Tutor Admin");
+    }).catch((error) => {
+        res.send("something went wrong creating Tutor Admin.");
+    });
+    let adminStudent = new Student({
+        name: "Admin",
+        email: "admin@admin.com",
+        password: "a",
+        salt: "what",
+        tutorID: 0,
+    });
+    adminStudent.save().then((result) => {
+        res.end("successfully added Student Admin.");
+    }).catch((error) => {
+        res.end("admin already created.");
+    });
+})
+
 /**Login as a Tutor or Student. If a tutor, send to tutor home page. If Student, send to student home. */
 app.post("/login/", (req, res) => {
     let username = req.body.username;
@@ -162,7 +191,7 @@ app.post("/add/student/", (req, res) =>{
         name: name,
         email: email,
         password: pass,
-        tutorID: -1
+        tutorID: "-1"
       });
     return newStudent.save().then((result) => {
         res.end("Successfully added user.")
