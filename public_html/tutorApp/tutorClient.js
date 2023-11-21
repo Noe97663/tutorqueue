@@ -16,5 +16,4 @@ function createQueue() {
     });
 }
 
-
 setInterval(createQueue(), 10000);
