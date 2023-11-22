@@ -49,7 +49,7 @@ app.use(cookieParser());
 let sessions = {};
 
 // TODO: Check if user is student or tutor to determine which pages are visible
-function authenticate(res, res, next) {
+function authenticate(req, res, next) {
     let c = req.cookies;
     console.log(c);
     if (c.login != undefined) {
