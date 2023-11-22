@@ -125,28 +125,48 @@ app.get("/create/admin", (req, res) => {
     });
 })
 
+const crypto = require("crypto");
+
+/**
+ * @param {*} password is the password given by user to login. 
+ * @param {*} encryptedPass is the encrypted password stored in db.
+ * @param {*} salt is the salt used with the encryption.
+ * @returns true if the password matches. Fale otherwise.
+ */
+function checkPassword(password, encryptedPass, salt) {
+    const hash = crypto.createHmac("sha256", salt);
+    hash.update(password);
+    let encrypted = hash.digest("hex");
+    return encryptedPass === encrypted;
+}
+
 /**Login as a Tutor or Student. If a tutor, send to tutor home page. If Student, send to student home. */
 app.post("/login/", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     // Login as student, going to help page
     
-    let findStudent = Student.find({name: username, password: password}).exec();
+    let findStudent = Student.find({name: username}).exec();
     findStudent.then((results) =>{
         if (results.length == 0){
             res.status(500).send("Login Failed: incorrect username and/or password");
         }
         else{
+            let passMatch = checkPassword(password, results[0].password, results[0].salt);
+            if (!passMatch) {
+                res.status(500).send("Login Failed: incorrect username and/or password");
+            } else {
             console.log(results[0].email);
             let sid = addSession(username); 
             let email = results[0].email;
-            console.log("User: " + username + " Pass:" + password + " TID: " + results[0].tutorID);
+            console.log("User: " + username + " Pass:" + results[0].password + " TID: " + results[0].tutorID);
             let isTutor = Number(results[0].tutorID) > -1;
             res.cookie("login", 
             {username: username, sessionID: sid,
              email: email, isTutor: isTutor}, 
             {maxAge: 600000 * 2 });
             res.end("/studentApp/requestHelp.html");
+            }
         }
     });
 });
@@ -181,16 +201,33 @@ app.get("/get/students/", (req, res) =>{
 app.get("/get/tutors/", (req, res) =>{
 
 });
+
+/**
+ * @param {*} password is a string of password entered by user.
+ * @returns object containing the encrypted password and random salt.
+ */
+function encryptPassword(password) {
+    var generatedSalt = crypto.randomBytes(16);
+    const salt = generatedSalt.toString("hex");
+    const hash = crypto.createHmac("sha256", salt);
+    hash.update(password);
+    var encryptedPass = hash.digest("hex");
+    return {password: encryptedPass, salt: salt};
+}
+
 /** Adds a new Student account to the system */
 app.post("/add/student/", (req, res) =>{
     let name = req.body.name;
     let email = req.body.email;
-    let pass = req.body.password;
+    let encryptionData = encryptPassword(req.body.password);
+    let pass = encryptionData.password;
+    let salt = encryptionData.salt;
     console.log("adding student user")
     let newStudent = new Student({
         name: name,
         email: email,
         password: pass,
+        salt: salt,
         tutorID: "-1"
       });
     return newStudent.save().then((result) => {
