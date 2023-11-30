@@ -101,6 +101,7 @@ setInterval(removeSessions, 2000);
  * creates an admin for testing 
  */
 app.get("/create/admin", (req, res) => {
+
     let adminTutor = Tutor({
         tutorID: 0,
         tutorCoordinationRank: 0,
@@ -108,15 +109,16 @@ app.get("/create/admin", (req, res) => {
         helpInfo: {},
     });
     adminTutor.save().then((result) => {
-        res.send("created Tutor Admin");
+        //res.send("created Tutor Admin");
     }).catch((error) => {
-        res.send("something went wrong creating Tutor Admin.");
+        //res.send("something went wrong creating Tutor Admin.");
     });
+    let pword = encryptPassword("a");
     let adminStudent = new Student({
         name: "Admin",
         email: "admin@admin.com",
-        password: "a",
-        salt: "what",
+        password: pword.password,
+        salt: pword.salt,
         tutorID: 0,
     });
     adminStudent.save().then((result) => {
@@ -157,21 +159,20 @@ app.post("/login/", (req, res) => {
             if (!passMatch) {
                 res.status(500).send("Login Failed: incorrect username and/or password");
             } else {
-            console.log(results[0].email);
-            let sid = addSession(username); 
-            let email = results[0].email;
-            console.log("User: " + username + " Pass:" + results[0].password + " TID: " + results[0].tutorID);
-            let isTutor = Number(results[0].tutorID) > -1;
-            res.cookie("login", 
-            {username: username, sessionID: sid,
-             email: email, isTutor: isTutor}, 
-            {maxAge: 600000 * 2 });
-            res.end("/studentApp/requestHelp.html");
+                console.log(results[0].email);
+                let sid = addSession(username); 
+                let email = results[0].email;
+                console.log("User: " + username + " Pass:" + results[0].password + " TID: " + results[0].tutorID);
+                let isTutor = Number(results[0].tutorID) > -1;
+                res.cookie("login", 
+                    {username: username, sessionID: sid,
+                    email: email, isTutor: isTutor}, 
+                    {maxAge: 600000 * 2 });
+                res.end("/studentApp/requestHelp.html");
             }
         }
     });
 });
-
 
 /** Returns the current total queue in FIFO time order */
 app.get("/get/queue/", (req, res) => {
@@ -181,6 +182,30 @@ app.get("/get/queue/", (req, res) => {
     }).catch((error) => {
         res.end("something went wrong getting the queue.")
     })
+});
+
+app.get("/get/email/", (req, res) => {
+    res.end(String(req.cookies.login.email));
+});
+
+// removes a student from the tutor queue by adding the tutors
+// email to the tutor field and changing the status to "In Progress"
+app.get("/remove/queue/:email/:tEmail", (req, res) => {
+    let tutorEmail = req.params.tEmail;
+    const addTutor = {
+        $set: {
+            tutor: tutorEmail,
+            status:"In Progress"
+        }
+    }
+    let p = QueueItem.updateOne({studentEmail: req.params.email, tutor: "none"},  addTutor).exec();
+    p.then((response) => {
+        console.log("good");
+        res.end("SUCCESS");
+    }).catch((err) => {
+        console.log(err);
+        res.end("FAILED");
+    });
 });
 
 /** Adds a new queue item to the queue and DB */
