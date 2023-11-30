@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-app.use(express.static("public_html"));
 app.use(express.urlencoded({extended: true}));
 
 
@@ -94,6 +93,8 @@ function removeSessions() {
 
 app.use("/tutorApp/", authenticate);
 app.use("/studentApp/", authenticate);
+
+app.use(express.static("public_html"));
 setInterval(removeSessions, 2000);
 
 /**
