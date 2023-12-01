@@ -308,6 +308,7 @@ app.get("/finish/help/:studentEmail", (req, res) => {
     })
 })
 
+// gets the QueueItems that a tutor is currently helping
 app.get("/get/currently/helping", (req, res) => {
     console.log("getting helping heeafsd");
     let helping = QueueItem.find({tutor: req.cookies.login.email, status:"In Progress"}).exec();
@@ -319,6 +320,7 @@ app.get("/get/currently/helping", (req, res) => {
     });
 });
 
+// returns a logged in users "isTutor" attribute
 app.get("/get/istutor/", (req,res) =>{
     let isTutor = req.cookies.login.isTutor;
     res.end(String(isTutor));
