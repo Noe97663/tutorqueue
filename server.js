@@ -176,7 +176,7 @@ app.post("/login/", (req, res) => {
 
 /** Returns the current total queue in FIFO time order */
 app.get("/get/queue/", (req, res) => {
-    let findQueueEntires = QueueItem.find({status: "open"});
+    let findQueueEntires = QueueItem.find({status: "open"}).exec();
     findQueueEntires.then((results) => {
         res.end(JSON.stringify(results));
     }).catch((error) => {
@@ -191,6 +191,7 @@ app.get("/get/email/", (req, res) => {
 // removes a student from the tutor queue by adding the tutors
 // email to the tutor field and changing the status to "In Progress"
 app.get("/remove/queue/:email/:tEmail", (req, res) => {
+    console.log(req.params);
     let tutorEmail = req.params.tEmail;
     const addTutor = {
         $set: {
@@ -198,9 +199,12 @@ app.get("/remove/queue/:email/:tEmail", (req, res) => {
             status:"In Progress"
         }
     }
-    let p = QueueItem.updateOne({studentEmail: req.params.email, tutor: "none"},  addTutor).exec();
+    console.log(req.params.email);
+    let p = QueueItem.updateOne({studentEmail: req.params.email, tutor: "none"},  addTutor, {upsert: true}).exec();
+    console.log(p);
     p.then((response) => {
         console.log("good");
+        console.log(response);
         res.end("SUCCESS");
     }).catch((err) => {
         console.log(err);
@@ -290,13 +294,40 @@ app.post("/student/add/queue", (req, res) => {
             });
             return newHelpRequest.save().then((result) => {
                 res.redirect("/studentApp/studentHome.html");
-                //res.end("successfully added help request.");
             }).catch((error) => {
                 console.log(error);
             })
         }
     });
     
+});
+
+// this changed the ticket status in the db to "done" 
+app.get("/finish/help/:studentEmail", (req, res) => {
+    const finishSession = {
+        $set: {
+            status:"done"
+        }
+    }
+    let p = QueueItem.updateOne({studentEmail: req.params.studentEmail, status:"In Progress"},  finishSession).exec();
+    p.then((res) => {
+        console.log("successfully ended tutor session");
+        res.end("SUCCESS");
+    })
+    p.catch((err) => {
+        console.log(err);
+        res.end("FAIL");
+    })
+})
+
+app.get("/get/currently/helping", (req, res) => {
+    let helping = QueueItem.find({tutor: req.cookies.login.email, status:"In Progress"}).exec();
+    helping.then((response) => {
+        res.end(JSON.stringify(response));
+    }).catch((err) => {
+        console.log(err);
+        console.log("ERROR");
+    });
 });
 
 app.get("/get/istutor/", (req,res) =>{
