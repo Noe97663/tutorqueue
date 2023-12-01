@@ -24,10 +24,22 @@ function createQueue() {
 function createHelping() {
     let p = fetch("/get/currently/helping");
     p.then((res) => {
+        return res.json();
+    }).then((res) => {
         for (let i = 0; i < res.length; i++) {
-            
+            let helpDiv = document.getElementById("helping");
+            let curHelp = document.createElement("div");
+            curHelp.innerHTML = res[i].student + " " + res[i].course + " " + res[i].description;
+            let doneButton = document.createElement("button");
+            doneButton.innerText = "Done";
+            doneButton.id = res[i].studentEmail;
+            doneButton.onclick = function() {
+                handleDoneClick(this);
+            } 
+            curHelp.appendChild(doneButton);
+            helpDiv.append(curHelp);
         }
-    })
+    });
 }
 
 function handleClick(param) {
@@ -44,24 +56,11 @@ function handleClick(param) {
             toRemoveDiv.remove();
             console.log("helpInfo");
             console.log(helpInfo);
-            return helpInfo
         }).catch((err) => {
             console.log(err);
-        }).then((helpInfo) => {
-            let helpDiv = document.getElementById("helping");
-            let curHelp = document.createElement("div");
-            curHelp.innerHTML = helpInfo;
-            let doneButton = document.createElement("button");
-            doneButton.innerText = "Done";
-            doneButton.id = param.id;
-            doneButton.onclick = function() {
-                handleDoneClick(this);
-            } 
-            curHelp.appendChild(doneButton);
-            helpDiv.append(curHelp);
         });
-    })
-}
+    });
+};
 
 function handleDoneClick(param) {
     console.log("studentEmail then param");
@@ -78,3 +77,4 @@ function handleDoneClick(param) {
 
 
 setInterval(createQueue(), 10000);
+setInterval(createHelping(), 10000);

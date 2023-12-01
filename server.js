@@ -50,12 +50,10 @@ let sessions = {};
 // TODO: Check if user is student or tutor to determine which pages are visible
 function authenticate(req, res, next) {
     let c = req.cookies;
-    console.log(c);
     if (c.login != undefined) {
         if (sessions[c.login.username] != undefined &&
             sessions[c.login.username].id == c.login.sessionID) {
-            
-            console.log(c);
+
             next();
         } else {
             console.log("failed auth because user is invalid");
@@ -159,10 +157,8 @@ app.post("/login/", (req, res) => {
             if (!passMatch) {
                 res.status(500).send("Login Failed: incorrect username and/or password");
             } else {
-                console.log(results[0].email);
                 let sid = addSession(username); 
                 let email = results[0].email;
-                console.log("User: " + username + " Pass:" + results[0].password + " TID: " + results[0].tutorID);
                 let isTutor = Number(results[0].tutorID) > -1;
                 res.cookie("login", 
                     {username: username, sessionID: sid,
@@ -191,7 +187,6 @@ app.get("/get/email/", (req, res) => {
 // removes a student from the tutor queue by adding the tutors
 // email to the tutor field and changing the status to "In Progress"
 app.get("/remove/queue/:email/:tEmail", (req, res) => {
-    console.log(req.params);
     let tutorEmail = req.params.tEmail;
     const addTutor = {
         $set: {
@@ -199,12 +194,8 @@ app.get("/remove/queue/:email/:tEmail", (req, res) => {
             status:"In Progress"
         }
     }
-    console.log(req.params.email);
     let p = QueueItem.updateOne({studentEmail: req.params.email, tutor: "none"},  addTutor, {upsert: true}).exec();
-    console.log(p);
     p.then((response) => {
-        console.log("good");
-        console.log(response);
         res.end("SUCCESS");
     }).catch((err) => {
         console.log(err);
@@ -264,6 +255,7 @@ app.post("/add/student/", (req, res) =>{
         res.end("Successfully added user.")
       }).catch((err) => {
         console.log(err)
+        res.end("Failed to add used");
       });
 });
 /** Allows TC to assign a student as a tutor */
@@ -276,10 +268,8 @@ app.get("/remove/cookie/", (req, res) => {
 });
 
 app.post("/student/add/queue", (req, res) => {
-    console.log(req.cookies.login.username);
     let alreadtInQueue = QueueItem.find({studentEmail: req.cookies.login.email, status: "open"}).exec();
     alreadtInQueue.then((result) => {
-        console.log(result);
         if (result.length != 0) {
             res.end("you are already in the queue...")
         } else {
@@ -312,15 +302,14 @@ app.get("/finish/help/:studentEmail", (req, res) => {
     let p = QueueItem.updateOne({studentEmail: req.params.studentEmail, status:"In Progress"},  finishSession).exec();
     p.then((res) => {
         console.log("successfully ended tutor session");
-        res.end("SUCCESS");
     })
     p.catch((err) => {
         console.log(err);
-        res.end("FAIL");
     })
 })
 
 app.get("/get/currently/helping", (req, res) => {
+    console.log("getting helping heeafsd");
     let helping = QueueItem.find({tutor: req.cookies.login.email, status:"In Progress"}).exec();
     helping.then((response) => {
         res.end(JSON.stringify(response));
