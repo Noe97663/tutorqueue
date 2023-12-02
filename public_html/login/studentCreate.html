@@ -27,12 +27,12 @@
             <form id="createAccountForm">
                 <label for="newUsername">Name</label><br>
                 <input type="text" name="newUsername" id="newUsername" required><br>
-                %%Email checking does not work correctly
-                <label for="newEmail">Email</label><br>
-                <input type="email" name="newEmail" id="newEmail" required><br>
+                <label for="newEmail">UA Email</label><br>
+                <input type="email" name="newEmail" id="newEmail"
+                 pattern="[a-z0-9]+@arizona.edu"  placeholder="netid@arizona.edu" required><br>
                 <label for="newPassword">Password</label><br>
                 <input type="password" name="newPassword" id="newPassword" required><br>
-                <input type="button" value="Create Account" onclick="addStudentAccount()">
+                <button type="submit">Create Account</button>
             </form>
             <div id="failMessage"></div>
         </div>

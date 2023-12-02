@@ -1,9 +1,10 @@
 
 window.onload = (() => {
-    document.cookie = username + "=" +
-      "expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    //document.cookie = username + "=" +
+    //  "expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    studentCreate = document.getElementById("createAccountForm");
+    studentCreate.addEventListener("submit", addStudentAccount);
 });
-
 
 /** Uses input values to try to log in with given type, username, and password */
 function attemptLogin(){
@@ -44,14 +45,11 @@ function createStudentPage(){
     window.location.href = 'studentCreate.html';
 }
 
-function addStudentAccount(){
+function addStudentAccount(e){
+    e.preventDefault();
     let usernameBox = document.getElementById("newUsername");
     let passwordBox = document.getElementById("newPassword");
     let emailBox = document.getElementById("newEmail");
-    if (usernameBox.value == "" || passwordBox.value == "" || emailBox.value == ""){
-        alert("Please fill in required fields");
-        return;
-    }
 
     let request = fetch("/add/student/", {
         method: "POST",
