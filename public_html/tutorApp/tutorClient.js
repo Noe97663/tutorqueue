@@ -63,8 +63,6 @@ function handleClick(param) {
 };
 
 function handleDoneClick(param) {
-    console.log("studentEmail then param");
-    console.log(param);
     let p = fetch("/finish/help/" + param.id);
     p.then((res) => {
         return res.text()
@@ -75,6 +73,60 @@ function handleDoneClick(param) {
     })
 }
 
+function handleAddTutor() {
+    
+}
 
 setInterval(createQueue(), 10000);
 setInterval(createHelping(), 10000);
+
+window.onload = function () {
+    // get the tutorID to check if they have permission to add tutors
+    let p = fetch("/get/tutorID/");
+    p.then((result) => {
+        return result.text();
+    }).then((tid) => {
+        console.log(tid);
+        // if the tutor is an admin, create the add tutor form
+        if (tid == 0) {
+            let addTutor = document.createElement("div");
+            addTutor.id = "addTutorForm";
+
+            let form = document.createElement("form");
+
+            let emailInputBox = document.createElement("input");
+            emailInputBox.placeholder = "john@doe.com";
+            emailInputBox.id = "emailInput";
+
+            let button = document.createElement("input");
+            button.value = "Submit";
+            button.type = "submit";
+            button.onclick = function () {
+                console.log("clicked!");
+                let email = document.getElementById("emailInput").value;
+                let p1 = fetch("/add/tutor/", {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({"email": email}),
+                    });
+                p1.then((res) => {
+                    return res.text();
+                }).then((text) => {
+                    if (text == "SUCCESS") {
+                        alert("Added tutor, happy tooting.");
+                    }
+                    else if (text == "FAILED_TOO_MANY") {
+                        alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
+                    }
+                    else if (text == "FAILED_NO_STUDENT") {
+                        alert("No student with that email found, please make an account.")
+                    }
+                })
+            }
+            form.appendChild(emailInputBox);
+            form.appendChild(button);
+            addTutor.appendChild(form);
+            document.getElementById("mainDiv").appendChild(addTutor);
+        }
+    })
+}

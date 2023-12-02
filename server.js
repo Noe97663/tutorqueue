@@ -160,10 +160,11 @@ app.post("/login/", (req, res) => {
                 let sid = addSession(username); 
                 let email = results[0].email;
                 let isTutor = Number(results[0].tutorID) > -1;
+                let tid = Number(results[0].tutorID);
                 res.cookie("login", 
                     {username: username, sessionID: sid,
-                    email: email, isTutor: isTutor}, 
-                    {maxAge: 600000 * 2 });
+                    email: email, isTutor: isTutor, tid: tid}, 
+                    {maxAge: 600000 * 2});
                 res.end("/studentApp/requestHelp.html");
             }
         }
@@ -262,9 +263,34 @@ app.post("/add/student/", (req, res) => {
         }
     }).catch((err) => {console.log(err)});
 });
+
 /** Allows TC to assign a student as a tutor */
 app.post("/add/tutor/", (req, res) =>{
-
+    console.log("adding tutor");
+    console.log(req.body);
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((result) => {
+        if (result.length == 0) {
+            res.end("FAILED_NO_STUDENT");
+        }
+        else if (result.length > 1) {
+            res.end("FAILED_TOO_MANY");
+        }
+        else {
+            let numTutors = Tutor.countDocuments({}).exec();
+            numTutors.then((num) => {
+                result[0].updateOne({tutorID: num}).exec();
+                let newTutor = new Tutor({
+                    tutorID: num,
+                    tutorCoordinationRank: 0,
+                    studentsHelped: 0,
+                    helpInfo: {},
+                });
+                newTutor.save();
+            });
+            res.end("SUCCESS");
+        }
+    })
 });
 
 app.get("/remove/cookie/", (req, res) => {
@@ -314,7 +340,6 @@ app.get("/finish/help/:studentEmail", (req, res) => {
 
 // gets the QueueItems that a tutor is currently helping
 app.get("/get/currently/helping", (req, res) => {
-    console.log("getting helping heeafsd");
     let helping = QueueItem.find({tutor: req.cookies.login.email, status:"In Progress"}).exec();
     helping.then((response) => {
         res.end(JSON.stringify(response));
@@ -325,9 +350,15 @@ app.get("/get/currently/helping", (req, res) => {
 });
 
 // returns a logged in users "isTutor" attribute
-app.get("/get/istutor/", (req,res) =>{
+app.get("/get/istutor/", (req,res) => {
     let isTutor = req.cookies.login.isTutor;
     res.end(String(isTutor));
+})
+
+// returns a logged in users "tid" attribute
+app.get("/get/tutorID/", (req, res) => {
+    let tid = req.cookies.login.tid;
+    res.end(String(tid));
 })
 
 app.listen(port, () => {
