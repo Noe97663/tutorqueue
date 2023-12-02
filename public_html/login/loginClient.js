@@ -3,19 +3,22 @@ window.onload = (() => {
     //document.cookie = username + "=" +
     //  "expires=Thu, 01 Jan 1970 00:00:01 GMT";
     studentCreate = document.getElementById("createAccountForm");
-    studentCreate.addEventListener("submit", addStudentAccount);
+    if (studentCreate != null) {
+        studentCreate.addEventListener("submit", addStudentAccount);
+    }
+    loginForm = document.getElementById("loginForm");
+    if (loginForm != null) {
+        loginForm.addEventListener("submit", attemptLogin);
+    }
 });
 
 /** Uses input values to try to log in with given type, username, and password */
-function attemptLogin(){
-    let loginForm = document.getElementById("loginForm");
+function attemptLogin(e){
+    console.log("this ran");
+    e.preventDefault();
     let usernameBox = document.getElementById("username");
     let passwordBox = document.getElementById("password");
-    if (usernameBox.value == "" || passwordBox.value == ""){
-        alert("Please fill in required fields");
-        return;
-    }
-    
+
     let request = fetch("/login/", {
         method: "POST",
         headers: {"Content-type": "application/json"},
