@@ -237,26 +237,30 @@ function encryptPassword(password) {
 }
 
 /** Adds a new Student account to the system */
-app.post("/add/student/", (req, res) =>{
+app.post("/add/student/", (req, res) => {
     let name = req.body.name;
-    let email = req.body.email;
-    let encryptionData = encryptPassword(req.body.password);
-    let pass = encryptionData.password;
-    let salt = encryptionData.salt;
-    console.log("adding student user")
-    let newStudent = new Student({
-        name: name,
-        email: email,
-        password: pass,
-        salt: salt,
-        tutorID: "-1"
-      });
-    return newStudent.save().then((result) => {
-        res.end("Successfully added user.")
-      }).catch((err) => {
-        console.log(err)
-        res.end("Failed to add used");
-      });
+    Student.find({name: name}).then((users) => {
+        if (users.length != 0) {
+            res.status(500).send("Username already taken: Please Try again");
+        } else {
+            let email = req.body.email;
+            let encryptionData = encryptPassword(req.body.password);
+            console.log("adding student user")
+            let newStudent = new Student({
+                name: name,
+                email: email,
+                password: encryptionData.password,
+                salt: encryptionData.salt,
+                tutorID: "-1"
+              });
+            return newStudent.save().then((result) => {
+                res.end("Successfully added user.")
+              }).catch((err) => {
+                console.log(err)
+                res.end("Failed to add used");
+              });
+        }
+    }).catch((err) => {console.log(err)});
 });
 /** Allows TC to assign a student as a tutor */
 app.post("/add/tutor/", (req, res) =>{

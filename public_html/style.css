@@ -49,3 +49,7 @@ a{
 .siteLogo {
     height: 100px;
 }
+
+#failMessage {
+    color: red;
+}
