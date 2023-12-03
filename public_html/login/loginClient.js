@@ -1,4 +1,7 @@
-
+/**
+ * When page loads, add event listeners to both login and
+ * create account form elements.
+ */
 window.onload = (() => {
     //document.cookie = username + "=" +
     //  "expires=Thu, 01 Jan 1970 00:00:01 GMT";
@@ -14,7 +17,6 @@ window.onload = (() => {
 
 /** Uses input values to try to log in with given type, username, and password */
 function attemptLogin(e){
-    console.log("this ran");
     e.preventDefault();
     let usernameBox = document.getElementById("username");
     let passwordBox = document.getElementById("password");

@@ -53,3 +53,8 @@ a{
 #failMessage {
     color: red;
 }
+
+.snakeOption {
+    text-align: center;
+    font-size: larger;
+}

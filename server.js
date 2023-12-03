@@ -165,7 +165,11 @@ app.post("/login/", (req, res) => {
                     {username: username, sessionID: sid,
                     email: email, isTutor: isTutor, tid: tid}, 
                     {maxAge: 600000 * 2});
-                res.end("/studentApp/requestHelp.html");
+                if (isTutor) {
+                    res.end("/tutorApp/tutorHome.html")
+                } else {
+                    res.end("/studentApp/requestHelp.html");
+                }
             }
         }
     });
@@ -297,29 +301,35 @@ app.get("/remove/cookie/", (req, res) => {
     res.cookies = null;
 });
 
+//Adds a student to the queue.
 app.post("/student/add/queue", (req, res) => {
-    let alreadtInQueue = QueueItem.find({studentEmail: req.cookies.login.email, status: "open"}).exec();
+    let newHelpRequest = new QueueItem({
+        time: Date.now(),
+        student: req.cookies.login.username,
+        studentEmail: req.cookies.login.email,
+        tutor: "none",
+        course: req.body.course,
+        description: req.body.description,
+        status: "open",
+    });
+    return newHelpRequest.save().then((result) => {
+        res.send("added to queue");
+    }).catch((error) => {
+        console.log(error);
+    }); 
+});
+
+//Checks if a student is already in the queue so student does not submit
+//another request
+app.get("/student/check/queue", (req, res) => {
+    let alreadtInQueue = QueueItem.find({student: req.cookies.login.username, status: "open"}).exec();
     alreadtInQueue.then((result) => {
         if (result.length != 0) {
-            res.end("you are already in the queue...")
-        } else {
-            let newHelpRequest = new QueueItem({
-                time: Date.now(),
-                student: req.cookies.login.username,
-                studentEmail: req.cookies.login.email,
-                tutor: "none",
-                course: req.body.course,
-                description: req.body.description,
-                status: "open",
-            });
-            return newHelpRequest.save().then((result) => {
-                res.redirect("/studentApp/studentHome.html");
-            }).catch((error) => {
-                console.log(error);
-            })
+            res.end("in queue");
+        } else  {
+            res.end("not in queue");
         }
-    });
-    
+    }).catch((err) => {console.log(err);});
 });
 
 // this changed the ticket status in the db to "done" 
