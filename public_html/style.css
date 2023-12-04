@@ -54,7 +54,20 @@ a{
     color: red;
 }
 
-.snakeOption {
+.studentOptions {
     text-align: center;
     font-size: larger;
+}
+
+#studentLeave {
+    background-color: navy;
+    color:white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+    padding: 5px;
+    opacity: .7;
+}
+
+#playSnake {
+    color: red;
 }

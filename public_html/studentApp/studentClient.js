@@ -49,7 +49,7 @@ function addQueueItem(e) {
         })
     });
     promise.then((response) => {
-        window.location.href = "./playSnake.html"
+        window.location.href = "./studentOptions.html"
     }).catch((err) => {console.log(err);});
 }
 
@@ -64,7 +64,7 @@ function checkFormSubmission() {
             return response.text();
         }).then((result) => {
             if (result == "in queue") {
-                window.location.href = "./playSnake.html"
+                window.location.href = "./studentOptions.html"
             }
         }).catch((err) => {console.log(err);});
     }
@@ -93,4 +93,19 @@ function checkForTutor() {
     checkIsTutor.catch((error) =>{
         console.log(error);
     })
+}
+
+/**
+ * This function executes when a student removes themself from the queue
+ */
+function selfRemoval() {
+    let p = fetch("/get/email");
+    p.then((response) => {
+        return response.text();
+    }).then((email) => {
+        let p1 = fetch("/remove/queueitem/" + email);
+        p1.then((response) => {
+            window.location.href = "./requestHelp.html";
+        }).catch((err) => {console.log(err);});
+    }).catch((err) => {console.log(err);});
 }

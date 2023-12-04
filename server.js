@@ -114,7 +114,7 @@ app.get("/create/admin", (req, res) => {
     let pword = encryptPassword("a");
     let adminStudent = new Student({
         name: "Admin",
-        email: "admin@admin.com",
+        email: "admin@arizona.edu",
         password: pword.password,
         salt: pword.salt,
         tutorID: 0,
@@ -214,8 +214,13 @@ app.post("/add/queueitem/", (req, res) =>{
 });
 
 /** Removes given queue item from queue and DB */
-app.get("/remove/queueitem/:item", (req, res) =>{
-
+app.get("/remove/queueitem/:studentEmail", (req, res) => {
+    let email = req.params.studentEmail;
+    const removeStudent = {$set: {status: "removed"}};
+    let p = QueueItem.updateOne({studentEmail: email, status: "open"}, removeStudent);
+    p.then((response) => {
+        res.end("removed");
+    }).catch((err) => {console.log(err);});
 });
 
 /** Returns JSON array of all student items, which TC can use to choose tutors */
