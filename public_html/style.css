@@ -2,6 +2,7 @@ body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px;
     background-color: aliceblue;
+    overflow-x: hidden;
 }
 
 .siteBanner {
@@ -42,7 +43,14 @@ a{
 }
 
 .mainDiv {
+    display: block;
+    margin: auto;
     padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    height: 85%;
+    position: absolute;
+    bottom: 0px;
     color:rgb(82, 82, 82)
 }
 
@@ -68,6 +76,23 @@ a{
     opacity: .7;
 }
 
+#gameEmbedding{
+
+}
+
+.gameView{
+    position: absolute;
+    left: 22%;
+    margin: auto;
+    display: block;
+    width: 50%;
+    height: 50%;
+    border: 2px solid rgb(160, 3, 3);
+}
+
+#queueHome{
+    overflow: hidden;
+}
 #playSnake {
     color: red;
 }

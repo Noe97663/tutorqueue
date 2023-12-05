@@ -109,3 +109,12 @@ function selfRemoval() {
         }).catch((err) => {console.log(err);});
     }).catch((err) => {console.log(err);});
 }
+
+function changeGame(){
+    var select = document.getElementById("gamesSelect");
+    var embedding = document.getElementById("gameEmbedding");
+    let link = select.value;
+    console.log("changing embedded game link to " + link);
+    embedding.src = link;
+
+}
