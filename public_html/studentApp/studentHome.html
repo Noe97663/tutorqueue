@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <title>Student Queue Home</title>
-        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" type="text/css" href="student.css">
         <script src="studentClient.js"></script>
     </head>
     <body>
@@ -43,9 +43,23 @@
                     <embed src="https://patorjk.com/games/snake/" id="gameEmbedding" class="gameView">
                         
                 </div>
-                <div id="queueViewArea">
-        
+                <div id="queueSide">
+                    <div id="queueLiveView">
+                        <div id="queueViewArea">
+                        </div>
+                    </div>
+                    <div id="queueOptions">
+                        <div class="studentOptions">
+                            Have to go? Fixed your bug? You can remove yourself from the queue by 
+                            clicking the button below.
+                        </div>
+                        <br>
+                        <div class="studentOptions">
+                            <button id="studentLeave" onclick="selfRemoval()">Leave the Queue</button>
+                        </div>
+                    </div>
                 </div>
+        
             </div>
         </div>
         
