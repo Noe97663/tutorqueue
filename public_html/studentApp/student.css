@@ -73,6 +73,12 @@ a{
     width: 60%;
 }
 
+.queueItemTitle{
+    margin:6px;
+}
+.queueItemLabel{
+    margin: 4px;
+}
 .studentOptions {
     text-align: center;
     font-size: larger;
