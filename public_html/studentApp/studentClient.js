@@ -6,9 +6,26 @@ function createQueue() {
         }).then((response) =>{
             console.log(response);
             let tq = document.getElementById("queueViewArea");
-            for (let i = 0; i < response.length; i++) {
+            for (let i = response.length - 1; i >= 0; i--) {
+                let student = response[i].student;
+                let time = response[i].time;
+                let date = new Date();
+          
+                date.setTime(time);
+                let email = response[i].studentEmail;
+                let course = response[i].course;
+                let description = response[i].description;
+                let status = response[i].status;
+                let number = i +1;
+
                 let entry = document.createElement("div");
-                entry.innerHTML = response[i].student + " " + response[i].course;
+                let title = document.createElement("h5");
+                let info = document.createElement("p");
+                title.innerText = number + " (" + date + ")";
+                info.innerHTML = "Name: " + student + "\n" + "Email: " + email + "\n";
+                entry.className = "queueItem";
+                entry.appendChild(title);
+                entry.appendChild(info);
                 tq.appendChild(entry);
             }
         });

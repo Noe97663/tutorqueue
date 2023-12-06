@@ -89,7 +89,6 @@ select{
     margin-top: 25px;
     margin-bottom: 25px;
 }
-
 .siteBanner {
     position: absolute;
     top: 0%;
@@ -125,6 +124,15 @@ select{
     color: rgb(15, 50, 120);
 }
 
+
+.siteLogo {
+    height: 100%;
+}
+
+.navOption {
+    color: black;
+    
+}
 .mainDiv {
     display: block;
     padding-left: 24px;
@@ -138,15 +146,6 @@ select{
     text-align: center;
 }
 
-
-.siteLogo {
-    height: 100%;
-}
-
-.navOption {
-    color: black;
-    
-}
 
 #createAccountButton {
     border-radius: 20px;

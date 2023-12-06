@@ -4,9 +4,14 @@ body {
     background-color: aliceblue;
     overflow: hidden;
 }
-
+.inputLabel {
+    font-size: 25px;
+    color: rgb(45, 45, 45);
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 .siteBanner {
-    position: relative;
+    position: absolute;
     top: 0%;
     display: flex;
     flex-direction: row;
@@ -14,23 +19,46 @@ body {
     height: 10%;
     margin: auto;
     background-color: white;
-    color: rgb(120, 15, 15);
+    color: rgb(15, 50, 120);
 }
 
 .navigationBar {
-    position: relative;
+    position: absolute;
     top: 10%;
-    height: 15%;
+    height: 6.5%;
+    width: 100%;
     background-color: rgb(160, 3, 3)
 }
 
 .navLink {
-    color:white;
+    color: white;
     text-decoration: none;
     padding-left: 24px;
     padding-right: 24px;
-    font-size: 28px;
     width: 200px;
+
+    font-size: 4.6vmin;
+}
+
+.pageTitle {
+
+    font-size: 8vh;
+    color: rgb(15, 50, 120);
+    margin: auto;
+}
+.siteLogo {
+    height: 100%;
+}
+.mainDiv {
+    display: block;
+    position: absolute;
+    margin: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    top:16.5%;
+    bottom: 0%;
+    color:rgb(82, 82, 82)
 }
 
 a{
@@ -38,27 +66,12 @@ a{
     text-decoration: none;
 }
 
-.pageTitle{
-    color: rgb(15, 50, 120);
+.queueItem{
+    border: 2px solid black;
+    margin: 6px;
+    padding-left: 6px;
+    width: 60%;
 }
-
-.mainDiv {
-    display: block;
-    margin: auto;
-    padding-left: 24px;
-    padding-right: 24px;
-    width: 100%;
-    height: 85%;
-    position: absolute;
-    bottom: 0px;
-    color:rgb(82, 82, 82)
-}
-
-.siteLogo {
-    height: 100px;
-}
-
-
 
 .studentOptions {
     text-align: center;
@@ -70,7 +83,7 @@ a{
     position: absolute;
     left:0%;
     right: 50%;
-    width: 50%;
+    width: 50vw;
     height: 100%;
     padding-left:24px;
     overflow: hidden;
@@ -80,7 +93,7 @@ a{
     position: absolute;
     left:50%;
     right: 0%;
-    width: 50%;
+    width: 50vw;
     height: 100%;
 }
 
@@ -93,9 +106,9 @@ a{
 }
 
 #queueOptions{
-    position: absolute;
-    height:10%;
-    bottom:15%;
+    position: relative;
+    display:block;
+    bottom: 10vh;
 }
 
 .gameView{
@@ -105,7 +118,7 @@ a{
     margin-top: 10px;
     display: block;
     width: 80%;
-    height: 80%;
+    height: 60vh;
     border: 2px solid rgb(160, 3, 3);
 }
 
