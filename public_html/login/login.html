@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>Tutor Login</title>
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="login.css">
     <script src="loginClient.js"></script>
 </head>
 
@@ -15,8 +15,13 @@
         <h1 class="siteHeader"></h1>
     </div>
 
+    <div class="navigationBar" id="navigationBar">
+        <div id="flavor">|-- Tutor of the Month: Nathan Oswald --|-- Closing for Winter Break on Dec 7 --|-- Reopening Jan 12 --|
+        </div>
+    </div>
+
     <div id="mainDiv" class="mainDiv">
-        <h1 class="pageTitle">Tutor Queue Login</h1>
+        <h1 class="pageTitle">Tutorqueue Login</h1>
 
         <!--<form id="loginForm" name="loginForm" action="/login" method="POST">-->
         <form id="loginForm">
@@ -27,15 +32,15 @@
                 <option value="tutorType">Tutor</option>
             </select></br>
             -->
-            <label for="username">Name</label></br>
+            <div class="inputLabel"> <label for="username">Name</label> </div>
             <input type="text" name="username" id="username" required></br>
-            <label for="password">Password</label></br>
+            <div class="inputLabel"> <label for="password">Password</label> </div>
             <input type="password" name="password" id="password" required></br>
             <!--<input type="submit" value="Login"></br>-->
             <button type="submit">Login</button>
         </form>
 
-        <h2>Don't have a Student account yet? Sign up</h2>
+        <h2>Don't have an account yet?</h2>
         <input type="button" name="createAccountButton" id="createAccountButton" value="Create Account"
             onclick="createStudentPage()">
     </div>
