@@ -229,7 +229,7 @@ app.post("/login/", (req, res) => {
 });
 
 /** Returns the current total queue in FIFO time order */
-app.get("/get/queue/", (req, res) => {
+app.get("/get/queue/studenthome", (req, res) => {
   let findQueueEntires = QueueItem.find({ status: "open" }).exec();
   findQueueEntires
     .then((results) => {
@@ -239,6 +239,19 @@ app.get("/get/queue/", (req, res) => {
       res.end("something went wrong getting the queue.");
     });
 });
+
+/** Returns the current total queue in FIFO time order */
+app.get("/get/queue/tutorhome", (req, res) => {
+    let username = req.cookies.login.username;
+    let findQueueEntires = QueueItem.find({ status: "open",  student: {$ne: username}}).exec();
+    findQueueEntires
+      .then((results) => {
+        res.end(JSON.stringify(results));
+      })
+      .catch((error) => {
+        res.end("something went wrong getting the queue.");
+      });
+  });
 
 app.get("/get/email/", (req, res) => {
   res.end(String(req.cookies.login.email));

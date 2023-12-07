@@ -17,7 +17,7 @@ Purpose: Client code for student page operations. Including the following:
  */
 function createQueue() {
   if (window.location.pathname == "/studentApp/studentHome.html") {
-    let p = fetch("/get/queue/");
+    let p = fetch("/get/queue/studenthome");
     p.then((response) => {
       return response.json();
     }).then((response) => {
