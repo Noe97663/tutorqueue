@@ -10,20 +10,24 @@ Purpose: The main server for the TutorQueue site, which handles client requests 
         access them.
 */
 
+// Node modules
 const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Server address and port
 let ip = "127.0.0.1";
 let port = "80";
 
+// Mongoose
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/TutorQueue");
 mongoose.connection.on("error", () => {
   console.log("ERROR CONNECTING TO MONGODB");
 });
 
+// Student schema
 let Schema = mongoose.Schema;
 const StudentSchema = new Schema({
   name: String,
@@ -33,6 +37,7 @@ const StudentSchema = new Schema({
   tutorID: Number,
 });
 
+// Tutor Schema
 const TutorSchema = new Schema({
   tutorID: Number,
   tutorCoordinationRank: Number,
@@ -40,6 +45,7 @@ const TutorSchema = new Schema({
   helpInfo: { course: String, hours: Number },
 });
 
+// Queue items 
 const QueueItemSchema = new Schema({
   time: Number,
   student: String,
@@ -58,7 +64,13 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 let sessions = {};
 
-// TODO: Check if user is student or tutor to determine which pages are visible
+/**
+ * Authenticates to check if a user is signed in before allowing access to special
+ * folders. If a user is not logged in, they cannot enter private pages
+ * @param {*} req Request
+ * @param {*} res Result
+ * @param {*} next Next Request
+ */
 function authenticate(req, res, next) {
   let c = req.cookies;
   if (c.login != undefined) {
@@ -101,10 +113,12 @@ function removeSessions() {
   }
 }
 
+// These app folders require authentication to logged in users only
 app.use("/tutorApp/", authenticate);
 app.use("/studentApp/", authenticate);
-
+// Public html folder
 app.use(express.static("public_html"));
+// Set interval for authenitcation
 setInterval(removeSessions, 2000);
 
 /**
@@ -421,6 +435,7 @@ app.post("/remove/coordinator/", (req, res) => {
     });
 });
 
+// Resets cookies
 app.get("/remove/cookie/", (req, res) => {
   res.cookies = null;
 });
@@ -543,6 +558,7 @@ app.get("/get/tutorID/", (req, res) => {
   res.end(String(tid));
 });
 
+/**Returns the rank of the current logged in tutor */
 app.get("/get/rank", (req, res) => {
   let find = Tutor.find({ tutorID: req.cookies.login.tid });
   find.then((result) => {
