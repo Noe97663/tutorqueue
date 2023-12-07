@@ -45,8 +45,6 @@ input {
 
 form {
     margin-top: 10px;
-    /* Add top margin */
-    margin-bottom: 10px;
 }
 
 button {
@@ -61,7 +59,7 @@ button {
     line-height: 1px;
     /* Adjust the line height to vertically center the text */
     padding: 16px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 h2 {
@@ -107,11 +105,9 @@ h2 {
 
 .mainDiv {
     display: block;
-    padding-left: 24px;
-    padding-right: 24px;
     top: 21.5%;
     width: 100%;
-    height: 78%;
+    height: 10%;
     position: absolute;
     bottom: 0px;
     color: grey;
@@ -144,4 +140,8 @@ h2 {
     width: 150px;
     color: white;
     line-height: 1px;
+}
+
+#failMessage{
+    color:rgb(160, 3, 3);
 }

@@ -292,124 +292,136 @@ function encryptPassword(password) {
 
 /** Adds a new Student account to the system */
 app.post("/add/student/", (req, res) => {
-  let name = req.body.name;
-  Student.find({ name: name })
-    .then((users) => {
-      if (users.length != 0) {
-        res.status(500).send("Username already taken: Please Try again");
-      } else {
-        let email = req.body.email;
-        let encryptionData = encryptPassword(req.body.password);
-        console.log("adding student user");
-        let newStudent = new Student({
-          name: name,
-          email: email,
-          password: encryptionData.password,
-          salt: encryptionData.salt,
-          tutorID: -1,
-        });
-        return newStudent
-          .save()
-          .then((result) => {
-            res.end("Successfully added user.");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.end("Failed to add used");
-          });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    let name = req.body.name;
+    Student.find({name: name}).then((users) => {
+        if (users.length != 0) {
+            res.status(500).send("Username already taken: Please Try again");
+        } else {
+            let email = req.body.email;
+            Student.find({email: email}).then((users1) => {
+                if (users1.length != 0) {
+                    res.status(700).send("Email already taken: Please Try again");
+                }
+                else {
+                    let encryptionData = encryptPassword(req.body.password);
+                    console.log("adding student user")
+                    let newStudent = new Student({
+                        name: name,
+                        email: email,
+                        password: encryptionData.password,
+                        salt: encryptionData.salt,
+                        tutorID: -1
+                      });
+                    return newStudent.save().then((result) => {
+                        res.end("Successfully added user.")
+                      }).catch((err) => {
+                        console.log(err)
+                        res.end("Failed to add used");
+                      });
+                }
+            });
+        }
+    }).catch((err) => {console.log(err)});
 });
 
 /** Allows TC to assign a student as a tutor */
-app.post("/add/tutor/", (req, res) => {
-  console.log("adding tutor");
-  console.log(req.body);
-  let studentFind = Student.find({ email: req.body.email }).exec();
-  studentFind.then((result) => {
-    if (result.length == 0) {
-      res.end("FAILED_NO_STUDENT");
-    } else if (result.length > 1) {
-      res.end("FAILED_TOO_MANY");
-    } else {
-      let id = Math.floor(Math.random() * 10000000);
-      result[0].updateOne({ tutorID: id }).exec();
-      let newTutor = new Tutor({
-        tutorID: id,
-        tutorCoordinationRank: -1,
-        studentsHelped: 0,
-        helpInfo: {},
-      });
-      newTutor.save();
-      res.end("SUCCESS");
-    }
-  });
+app.post("/add/tutor/", (req, res) =>{
+    console.log("adding tutor");
+    console.log(req.body);
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((result) => {
+        if (result.length == 0) {
+            res.end("FAILED_NO_STUDENT");
+        }
+        else if (result[0].tutorID != -1) {
+            res.end("TUTOR_EXISTS");
+        }
+        else {
+            let id = Math.floor(Math.random() * 10000000);
+            result[0].updateOne({tutorID: id}).exec();
+            let newTutor = new Tutor({
+                tutorID: id,
+                tutorCoordinationRank: -1,
+                studentsHelped: 0,
+                helpInfo: {},
+            });
+            newTutor.save();
+            res.end("SUCCESS");
+        }
+    })
 });
 
 //Allows TC to add a new TC to the database.
 app.post("/add/coordinator/", (req, res) => {
-  let studentFind = Student.find({ email: req.body.email }).exec();
-  studentFind.then((result) => {
-    if (result.length == 0) {
-      res.end("FAILED_NO_STUDENT");
-    } else if (result.length > 1) {
-      res.end("FAILED_TOO_MANY");
-    } else {
-      let tutorFind = Tutor.find({ tutorID: result[0].tutorID }).exec();
-      tutorFind.then((results) => {
-        if (results.length == 0) {
-          res.end("FAILED_NO_STUDENT");
-        } else {
-          let rank = Tutor.countDocuments({}).exec();
-          rank.then((num) => {
-            results[0].updateOne({ tutorCoordinationRank: num }).exec();
-            res.end("SUCCESS");
-          });
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((result) => {
+        if (result.length == 0) {
+            res.end("FAILED_NO_STUDENT");
         }
-      });
-    }
-  });
+        else {
+            let id = result[0].tutorID;
+            let tutorFind = Tutor.find({tutorID: id}).exec();
+            tutorFind.then((results) => {
+                if (results.length == 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else if (results[0].tutorCoordinationRank != -1) {
+                    res.end("EXISTS");
+                }
+                else {
+                    let rank = Tutor.countDocuments({tutorCoordinationRank: {$gt: -1}}).exec();
+                    rank.then((num) => {
+                        results[0].updateOne({tutorCoordinationRank: num}).exec();
+                        res.end("SUCCESS");
+                    });
+                }
+            });
+        }
+    });
 });
 
 //Allow a TC to remove another tutor
 app.post("/remove/tutor/", (req, res) => {
-  let studentFind = Student.find({ email: req.body.email }).exec();
-  studentFind.then((student) => {
-    if (student.length == 0) {
-      res.end("FAILED_NO_STUDENT");
-    } else {
-      let id = student[0].tutorID;
-      student[0].updateOne({ tutorID: -1 }).exec();
-      Tutor.deleteOne({ tutorID: id, tutorCoordinationRank: -1 }).exec();
-      res.end("SUCCESS");
-    }
-  });
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((student) => {
+        if (student.length == 0) {res.end("FAILED_NO_STUDENT");}
+        else {
+            let id = student[0].tutorID;
+            let del = Tutor.find({tutorID: id}).exec();
+            del.then((tutor) => {
+                if (tutor.length == 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else if (tutor[0].tutorCoordinationRank != -1) {
+                    res.end("COORD")
+                } else {
+                    student[0].updateOne({tutorID: -1}).exec();
+                    tutor[0].deleteOne({}).exec();
+                    res.end("SUCCESS");
+                }
+            });
+        }
+    });
 });
 
 //Allow a TC to remove another TC
 app.post("/remove/coordinator/", (req, res) => {
-  let rank = Number(req.body.rank);
-  let studentFind = Student.find({ email: req.body.email }).exec();
-  studentFind.then((student) => {
-    if (student.length == 0) {
-      res.end("FAILED_NO_STUDENT");
-    } else {
-      let tutorFind = Tutor.find({ tutorID: student[0].tutorID }).exec();
-      tutorFind.then((tutor) => {
-        if (tutor.length == 0) {
-          res.end("FAILED_NO_STUDENT");
-        } else if (tutor[0].tutorCoordinationRank < rank) {
-          res.end("UNAUTHORIZED");
-        } else {
-          tutor[0].updateOne({ tutorCoordinationRank: -1 }).exec();
-          res.end("SUCCESS");
+    let rank = Number(req.body.rank);
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((student) => {
+        if (student.length == 0) {res.end("FAILED_NO_STUDENT");}
+        else {
+            let tutorFind = Tutor.find({tutorID: student[0].tutorID}).exec();
+            tutorFind.then((tutor) => {
+                if (tutor.length == 0 || tutor[0].tutorCoordinationRank < 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else if (tutor[0].tutorCoordinationRank <= rank) {
+                    res.end("UNAUTHORIZED");
+                } else {
+                    tutor[0].updateOne({tutorCoordinationRank: -1}).exec();
+                    res.end("SUCCESS");
+                }
+            });
         }
-      });
-    }
-  });
+    });
 });
 
 app.get("/remove/cookie/", (req, res) => {

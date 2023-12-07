@@ -1,15 +1,29 @@
-<!-- 
-Authors: Joseph Cortez
-         Kyle Walker
-         Noel Poothokaran
-         Skyler DeVaughn
-Course: Csc 337 Webdev Benjamin Dicken Fall 2023
-Purpose: Student home page with Main view of the live Queue. Contains the live queue area, and a button to leave the queue when you are in it.
+<!--
+    Final Project for CSC 337: Tutor Queue Site
+        Names: Skyler DeVaughn, Kyle Walker, Joseph Cortez, Noel Poothokaran
+        Purpose: This page serves as the student home where they can view the live queue.
 -->
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Queue</title>
+        <link rel="stylesheet" type="text/css" href="studentHome.css">
+        <script src="studentClient.js"></script>
+    </head>
+    <body>
+        <div class="siteBanner">
+            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+            <h1 class="siteHeader"></h1>
+        </div>
+        <div class="navigationBar" id="navigationBar">
+            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+            <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+            <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+            <a href="studentOptions.html" class="navLink" id="loungeLink">Lounge</a>
+        </div>
 
 <head>
     <meta charset="utf-8">
@@ -18,27 +32,19 @@ Purpose: Student home page with Main view of the live Queue. Contains the live q
     <script src="studentClient.js"></script>
 </head>
 
-<body>
-    <div class="siteBanner">
-        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-        <h1 class="siteHeader"></h1>
-    </div>
-    <div class="navigationBar" id="navigationBar">
-        <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
-        <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
-        <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
-    </div>
-
-    <div id="queueHome">
-        <div id="mainDiv" class="mainDiv">
-            <h1 class="pageTitle">Queue Home</h1>
-            <div id="queueSide">
-                <div id="queueLiveView">
-                    <div id="queueViewArea">
+            <div id="mainDiv" class="mainDiv">
+                <h1 class="pageTitle">Queue Home</h1>
+                <div id="queueSide">
+                    <div id="queueLiveView">
+                        <div id="queueViewArea">
+                        </div>
                     </div>
+                    
                 </div>
-                <div id="queueOptions">
+                <div id="queueOptions" >
+
                     <button id="studentLeave" onclick="selfRemoval()">Leave the Queue</button>
+
                 </div>
             </div>
         </div>

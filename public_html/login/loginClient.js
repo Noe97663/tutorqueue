@@ -77,26 +77,25 @@ function addStudentAccount(e) {
   let passwordBox = document.getElementById("newPassword");
   let emailBox = document.getElementById("newEmail");
 
-  let request = fetch("/add/student/", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      name: usernameBox.value,
-      password: passwordBox.value,
-      email: emailBox.value,
-    }),
-  });
-  request.then((result) => {
-    if (result.status == 500) {
-      usernameBox.value = "";
-      let message = document.getElementById("failMessage");
-      message.innerText =
-        "Username already exists. Please try a different Username.";
-    } else {
-      window.location.href = "login.html";
-    }
-  });
-  request.catch((error) => {
-    console.log(error);
-  });
+    let request = fetch("/add/student/", {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            name: usernameBox.value,
+            password: passwordBox.value,
+            email: emailBox.value
+        })
+    })
+    request.then((result) => {
+        if (result.status == 500) {
+            alert("Username already taken. Please give a different username.");
+        } else if (result.status == 700) {
+            alert("An account with that email aleady exists. Try logging in.")
+        } else {
+        window.location.href = "login.html";
+        }
+    })
+    request.catch((error) =>{
+        console.log(error);
+    });
 }
