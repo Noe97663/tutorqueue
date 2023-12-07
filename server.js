@@ -159,17 +159,21 @@ app.post("/login/", (req, res) => {
             } else {
                 let sid = addSession(username); 
                 let email = results[0].email;
-                let isTutor = Number(results[0].tutorID) > -1;
-                let tid = Number(results[0].tutorID);
-                res.cookie("login", 
-                    {username: username, sessionID: sid,
-                    email: email, isTutor: isTutor, tid: tid}, 
-                    {maxAge: 600000 * 2});
-                if (isTutor) {
-                    res.end("/tutorApp/tutorHome.html")
-                } else {
-                    res.end("/studentApp/requestHelp.html");
-                }
+                let isTutor = results[0].tutorID > -1;
+                let tid = results[0].tutorID;
+                let checkTC = Tutor.find({tutorID: tid, tutorCoordinationRank: {$gt: -1}});
+                checkTC.then((results) => {
+                    let isTC = results.length > 0;
+                    res.cookie("login", 
+                        {username: username, sessionID: sid,
+                        email: email, isTutor: isTutor, tid: tid, isTC: isTC}, 
+                        {maxAge: 600000 * 2});
+                    if (isTutor) {
+                        res.end("/tutorApp/tutorHome.html");
+                    } else {
+                        res.end("/studentApp/requestHelp.html");
+                    }
+                }).catch((err) => console.log(err));
             }
         }
     });
@@ -261,7 +265,7 @@ app.post("/add/student/", (req, res) => {
                 email: email,
                 password: encryptionData.password,
                 salt: encryptionData.salt,
-                tutorID: "-1"
+                tutorID: -1
               });
             return newStudent.save().then((result) => {
                 res.end("Successfully added user.")
@@ -286,20 +290,81 @@ app.post("/add/tutor/", (req, res) =>{
             res.end("FAILED_TOO_MANY");
         }
         else {
-            let numTutors = Tutor.countDocuments({}).exec();
-            numTutors.then((num) => {
-                result[0].updateOne({tutorID: num}).exec();
-                let newTutor = new Tutor({
-                    tutorID: num,
-                    tutorCoordinationRank: 0,
-                    studentsHelped: 0,
-                    helpInfo: {},
-                });
-                newTutor.save();
+            let id = Math.floor(Math.random() * 10000000);
+            result[0].updateOne({tutorID: id}).exec();
+            let newTutor = new Tutor({
+                tutorID: id,
+                tutorCoordinationRank: -1,
+                studentsHelped: 0,
+                helpInfo: {},
             });
+            newTutor.save();
             res.end("SUCCESS");
         }
     })
+});
+
+//Allows TC to add a new TC to the database.
+app.post("/add/coordinator/", (req, res) => {
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((result) => {
+        if (result.length == 0) {
+            res.end("FAILED_NO_STUDENT");
+        }
+        else if (result.length > 1) {
+            res.end("FAILED_TOO_MANY");
+        }
+        else {
+            let tutorFind = Tutor.find({tutorID: result[0].tutorID}).exec();
+            tutorFind.then((results) => {
+                if (results.length == 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else {
+                    let rank = Tutor.countDocuments({}).exec();
+                    rank.then((num) => {
+                        results[0].updateOne({tutorCoordinationRank: num}).exec();
+                        res.end("SUCCESS");
+                    });
+                }
+            });
+        }
+    });
+});
+
+//Allow a TC to remove another tutor
+app.post("/remove/tutor/", (req, res) => {
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((student) => {
+        if (student.length == 0) {res.end("FAILED_NO_STUDENT");}
+        else {
+            let id = student[0].tutorID;
+            student[0].updateOne({tutorID: -1}).exec();
+            Tutor.deleteOne({tutorID: id, tutorCoordinationRank: -1}).exec();
+            res.end("SUCCESS");
+        }
+    });
+});
+
+//Allow a TC to remove another TC
+app.post("/remove/coordinator/", (req, res) => {
+    let rank = Number(req.body.rank);
+    let studentFind = Student.find({email: req.body.email}).exec();
+    studentFind.then((student) => {
+        if (student.length == 0) {res.end("FAILED_NO_STUDENT");}
+        else {
+            let tutorFind = Tutor.find({tutorID: student[0].tutorID}).exec();
+            tutorFind.then((tutor) => {
+                if (tutor.length == 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else if (tutor[0].tutorCoordinationRank < rank) {
+                    res.end("UNAUTHORIZED");
+                } else {
+                    tutor[0].updateOne({tutorCoordinationRank: -1}).exec();
+                    res.end("SUCCESS");
+                }
+            });
+        }
+    });
 });
 
 app.get("/remove/cookie/", (req, res) => {
@@ -368,13 +433,26 @@ app.get("/get/currently/helping", (req, res) => {
 app.get("/get/istutor/", (req,res) => {
     let isTutor = req.cookies.login.isTutor;
     res.end(String(isTutor));
-})
+});
+
+// returns a logged in users "isTC" attribute
+app.get("/get/iscoord/", (req,res) => {
+    let isTutorCoord = req.cookies.login.isTC;
+    res.end(String(isTutorCoord));
+});
 
 // returns a logged in users "tid" attribute
 app.get("/get/tutorID/", (req, res) => {
     let tid = req.cookies.login.tid;
     res.end(String(tid));
 })
+
+app.get("/get/rank", (req, res) => {
+    let find = Tutor.find({tutorID: req.cookies.login.tid});
+    find.then((result) => {
+        res.end(String(result[0].tutorCoordinationRank));
+    });
+});
 
 app.listen(port, () => {
     console.log(`server running on http://${ip}:${port}`);

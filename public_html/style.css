@@ -76,9 +76,7 @@ a{
     opacity: .7;
 }
 
-#gameEmbedding{
 
-}
 
 .gameView{
     position: absolute;
@@ -96,3 +94,5 @@ a{
 #playSnake {
     color: red;
 }
+
+

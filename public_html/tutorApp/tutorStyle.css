@@ -1,0 +1,149 @@
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+.inputLabel {
+    font-size: 25px;
+    color: rgb(45, 45, 45);
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.siteBanner {
+    position: absolute;
+    top: 0%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10%;
+    margin: auto;
+    background-color: white;
+    color: rgb(15, 50, 120);
+}
+
+.navigationBar {
+    position: absolute;
+    top: 10%;
+    height: 6.5%;
+    width: 100%;
+    background-color: rgb(160, 3, 3)
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 200px;
+
+    font-size: 4.6vmin;
+}
+
+.pageTitle {
+
+    font-size: 8vh;
+    color: rgb(15, 50, 120);
+    margin: auto;
+}
+.siteLogo {
+    height: 100%;
+}
+.mainDiv {
+    display: block;
+    position: absolute;
+    margin: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    top:16.5%;
+    bottom: 0%;
+    color:rgb(82, 82, 82)
+}
+
+a{
+    color:rgb(15, 50, 120);
+    text-decoration: none;
+}
+
+.queueItem{
+    border: 2px solid black;
+    margin: 6px;
+    padding-left: 6px;
+    width: 60%;
+}
+
+.queueItemTitle{
+    margin:6px;
+}
+.queueItemLabel{
+    margin: 4px;
+}
+.studentOptions {
+    text-align: center;
+    font-size: larger;
+}
+
+
+#waitArea{
+    position: absolute;
+    left:0%;
+    right: 50%;
+    width: 50vw;
+    height: 100%;
+    padding-left:24px;
+    overflow: hidden;
+}
+
+#queueSide{
+    position: absolute;
+    left:50%;
+    right: 0%;
+    width: 50vw;
+    height: 100%;
+}
+
+#queueLiveView{
+    height: 75%;
+}
+
+#queueViewArea{
+    overflow-y: auto;
+}
+
+#queueOptions{
+    position: relative;
+    display:block;
+    bottom: 10vh;
+}
+
+.gameView{
+    position: absolute;
+    margin: auto;
+    margin-left: 26px;
+    margin-top: 10px;
+    display: block;
+    width: 80%;
+    height: 60vh;
+    border: 2px solid rgb(160, 3, 3);
+}
+
+#failMessage {
+    color: red;
+}
+
+#studentLeave {
+    background-color: navy;
+    color:white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+    padding: 5px;
+    opacity: .7;
+}
+
+#queueHome{
+    overflow: hidden;
+}
+#playSnake {
+    color: red;
+}
