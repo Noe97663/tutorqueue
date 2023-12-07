@@ -5,25 +5,7 @@
 -->
 
 <!DOCTYPE html>
-
-<html lang = "en">
-    <head>
-        <meta charset="utf-8">
-        <title>Queue</title>
-        <link rel="stylesheet" type="text/css" href="studentHome.css">
-        <script src="studentClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
-        </div>
-        <div class="navigationBar" id="navigationBar">
-            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
-            <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
-            <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
-            <a href="studentOptions.html" class="navLink" id="loungeLink">Lounge</a>
-        </div>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -32,21 +14,26 @@
     <script src="studentClient.js"></script>
 </head>
 
-            <div id="mainDiv" class="mainDiv">
-                <h1 class="pageTitle">Queue Home</h1>
-                <div id="queueSide">
-                    <div id="queueLiveView">
-                        <div id="queueViewArea">
-                        </div>
-                    </div>
-                    
-                </div>
-                <div id="queueOptions" >
-
-                    <button id="studentLeave" onclick="selfRemoval()">Leave the Queue</button>
-
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+    </div>
+    <div class="navigationBar" id="navigationBar">
+        <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+        <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+        <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+        <a href="studentOptions.html" class="navLink" id="loungeLink">Lounge</a>
+    </div>
+    <div id="mainDiv" class="mainDiv">
+        <h1 class="pageTitle">Queue Home</h1>
+        <div id="queueSide">
+            <div id="queueLiveView">
+                <div id="queueViewArea">
                 </div>
             </div>
+        </div>
+        <div id="queueOptions">
+            <button id="studentLeave" onclick="selfRemoval()">Leave the Queue</button>
         </div>
     </div>
 </body>

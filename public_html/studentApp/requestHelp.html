@@ -11,8 +11,9 @@ Purpose: This is the help page which includes a short message about requesting t
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>Get Help</title>
         <link rel="stylesheet" type="text/css" href="requestHelp.css">
         <script src="studentClient.js"></script>
@@ -20,7 +21,6 @@ Purpose: This is the help page which includes a short message about requesting t
     <body>
         <div class="siteBanner">
             <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
         </div>
         <div class="navigationBar" id="navigationBar">
             <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
@@ -50,7 +50,7 @@ Purpose: This is the help page which includes a short message about requesting t
             </div>
             <div class="inputLabel"><label for="description">Description:</label></div>
             <textarea id="description" name="description" rows="4" cols="50"
-                placeholder="Please enter a brief description of your problem."></textarea></br>
+                placeholder="Please enter a brief description of your problem."></textarea><br>
             <button type="submit">Submit</button>
         </form>
     </div>
