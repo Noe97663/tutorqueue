@@ -1,41 +1,48 @@
-<!--
-    Final for CSC 337: Tutor Queue Site
-        Names: Skyler DeVaughn and Kyle Walker
-        Purpose: This page allows users to create new student accounts
+<!-- 
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: The page allowing users to create new accounts to add to the DB and sign in with. Includes a form with
+        Text fields for student name, email, and password which must follow valid format. Also has adiv for error
+        messages in case invalid input is received. 
 -->
 
 <!DOCTYPE html>
 
-<html lang = "en">
-    <head>
-        <meta charset="utf-8">
-        <title>Create Student Account</title>
-        <link rel="stylesheet" type="text/css" href="studentCreate.css">
-        <script src="loginClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
-        </div>
-        <div class="navigationBar" id="navigationBar">
-            <a href="login.html" class="navLink" id="loginLink">Login</a>
-        </div>
+<html lang="en">
 
-        <div id="mainDiv" class="mainDiv">
-            <h1 class="pageTitle">Create a Student Account</h1>
-            <form id="createAccountForm">
-                <div class="inputLabel"><label for="newUsername">Name</label></div>
-                <input type="text" name="newUsername" id="newUsername" required><br>
-                <div class="inputLabel"><label for="newEmail">UA Email</label></div>
-                <input type="email" name="newEmail" id="newEmail"
-                 pattern="[a-z0-9]+@arizona.edu"  placeholder="netid@arizona.edu" required><br>
-                 <div class="inputLabel"><label for="newPassword">Password</label><br></div>
-                <input type="password" name="newPassword" id="newPassword" required><br>
-                <button type="submit">Create Account</button>
-            </form>
-            <div id="failMessage"></div>
-        </div>
-      
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Create Student Account</title>
+    <link rel="stylesheet" type="text/css" href="studentCreate.css">
+    <script src="loginClient.js"></script>
+</head>
+
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+        <h1 class="siteHeader"></h1>
+    </div>
+    <div class="navigationBar" id="navigationBar">
+        <a href="login.html" class="navLink" id="loginLink">Login</a>
+    </div>
+
+    <div id="mainDiv" class="mainDiv">
+        <h1 class="pageTitle">Create a Student Account</h1>
+        <form id="createAccountForm">
+            <div class="inputLabel"><label for="newUsername">Name</label></div>
+            <input type="text" name="newUsername" id="newUsername" required><br>
+            <div class="inputLabel"><label for="newEmail">UA Email</label></div>
+            <input type="email" name="newEmail" id="newEmail" pattern="[a-z0-9]+@arizona.edu"
+                placeholder="netid@arizona.edu" required><br>
+            <div class="inputLabel"><label for="newPassword">Password</label><br></div>
+            <input type="password" name="newPassword" id="newPassword" required><br>
+            <button type="submit">Create Account</button>
+        </form>
+        <div id="failMessage"></div>
+    </div>
+</body>
+
 </html>

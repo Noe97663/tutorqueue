@@ -1,5 +1,15 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Style for Home Queue view, where the live queue items are displayed with all info. Queue items are displayed in blocks
+        with rows of properties. The button to leave is at the bottom. Follows app color theme and sizes
+*/
+
 body {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px;
     background-color: aliceblue;
     overflow: hidden;
@@ -41,7 +51,7 @@ a {
     vertical-align: text-top;
 }
 
-.pageTitle{
+.pageTitle {
     color: rgb(15, 50, 120);
 }
 
@@ -65,63 +75,69 @@ a {
     font-size: larger;
 }
 
-
 #navigationBar {
     position: absolute;
     top: 15%;
     height: 6.5%;
     width: 100%;
     background-color: rgb(160, 3, 3);
-    padding:0px;
+    padding: 0px;
 }
 
-
-#waitArea{
+#waitArea {
     position: absolute;
-    left:0%;
+    left: 0%;
     right: 50%;
     width: 50%;
     height: 100%;
-    padding-left:24px;
+    padding-left: 24px;
     overflow: hidden;
 }
 
+/* 
+This should be be 63 and queueLiveView should be 100,
+will Test
+*/
 #queueSide{
     position: absolute;
-    left:50%;
+    left: 50%;
     right: 0%;
     width: 50%;
-    height: 100%;
+    height: 63%;
 }
 
 #queueLiveView{
-    height: 75%;
+    height: 63%;
 }
 
-#queueViewArea{
+#queueViewArea {
     overflow-y: auto;
 }
 
+/* Leave queue option is placed at the bottom and is 7% tall, the queue
+above should take the rest of the page 63% (100 - 37)(7 from queueOptions,
+15 each from the nav banner and the site banner*/
 #queueOptions{
     position: absolute;
-    height:10%;
-    bottom:15%;
+    height:7%;
+    bottom:0%;
+    left:45%;
 }
-
 
 #failMessage {
     color: red;
 }
 
 #studentLeave {
-    background-color: navy;
-    color:white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: larger;
-    padding: 5px;
-    opacity: .7;
+    border-radius: 20px;
+    border: solid black 2px;
+    background: rgb(15, 50, 120);
+    padding: 10px;
+    width: 130px;
+    color: white;
+    line-height: 1px;
 }
 
-#queueHome{
+#queueHome {
     overflow: hidden;
 }

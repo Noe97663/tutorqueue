@@ -1,3 +1,13 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Style for the create new student account page. Follows same UA color theme and copies navigation bar.
+        Same style as login page, with simple input forms.
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +24,6 @@ body {
     background-color: aliceblue;
     overflow-x: hidden;
 }
-
 
 a {
     color: rgb(15, 50, 120);
@@ -36,8 +45,6 @@ input {
 
 form {
     margin-top: 10px;
-    /* Add top margin */
-    margin-bottom: 10px;
 }
 
 button {
@@ -52,7 +59,7 @@ button {
     line-height: 1px;
     /* Adjust the line height to vertically center the text */
     padding: 16px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 h2 {
@@ -80,7 +87,6 @@ h2 {
     background-color: white;
 }
 
-
 .navLink {
     color: white;
     text-decoration: none;
@@ -99,17 +105,14 @@ h2 {
 
 .mainDiv {
     display: block;
-    padding-left: 24px;
-    padding-right: 24px;
     top: 21.5%;
     width: 100%;
-    height: 78%;
+    height: 10%;
     position: absolute;
     bottom: 0px;
     color: grey;
     text-align: center;
 }
-
 
 .siteLogo {
     height: 100%;
@@ -117,7 +120,7 @@ h2 {
 
 .navOption {
     color: black;
-    
+
 }
 
 #navigationBar {
@@ -126,7 +129,7 @@ h2 {
     height: 6.5%;
     width: 100%;
     background-color: rgb(160, 3, 3);
-    padding:0px;
+    padding: 0px;
 }
 
 #createAccountButton {
@@ -137,4 +140,8 @@ h2 {
     width: 150px;
     color: white;
     line-height: 1px;
+}
+
+#failMessage{
+    color:rgb(160, 3, 3);
 }

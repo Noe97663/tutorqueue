@@ -1,8 +1,19 @@
+<!-- 
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: This is the help page which includes a short message about requesting tutor help, a selection combo box for
+        The desired course, and a textbox to enter a description of the problem for TAs to view. Has a submit button to 
+        submit the request form
+-->
+
 <!DOCTYPE html>
 
 <html>
     <head>
-        <title>Request Help</title>
+        <title>Get Help</title>
         <link rel="stylesheet" type="text/css" href="requestHelp.css">
         <script src="studentClient.js"></script>
     </head>
@@ -15,6 +26,7 @@
             <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
             <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
             <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+            <a href="studentOptions.html" class="navLink" id="loungeLink">Lounge</a>
         </div>
         
         <div id="mainDiv" class="mainDiv">
@@ -34,14 +46,14 @@
                     <option value="CSC210">CSC 210</option>
                     <option value="CSC144">CSC 144</option>
                     <option value="CSC244">CSC 244</option>
-                </select></div>
-                <div class="inputLabel"><label for="description">Description:</label></div>
-                <textarea id="description" name="description" rows="4" cols="50" placeholder="Please enter a brief description of your problem."></textarea></br>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        
+                </select>
+            </div>
+            <div class="inputLabel"><label for="description">Description:</label></div>
+            <textarea id="description" name="description" rows="4" cols="50"
+                placeholder="Please enter a brief description of your problem."></textarea></br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
 
-        
-    </body>
 </html>
