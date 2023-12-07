@@ -258,21 +258,28 @@ app.post("/add/student/", (req, res) => {
             res.status(500).send("Username already taken: Please Try again");
         } else {
             let email = req.body.email;
-            let encryptionData = encryptPassword(req.body.password);
-            console.log("adding student user")
-            let newStudent = new Student({
-                name: name,
-                email: email,
-                password: encryptionData.password,
-                salt: encryptionData.salt,
-                tutorID: -1
-              });
-            return newStudent.save().then((result) => {
-                res.end("Successfully added user.")
-              }).catch((err) => {
-                console.log(err)
-                res.end("Failed to add used");
-              });
+            Student.find({email: email}).then((users1) => {
+                if (users1.length != 0) {
+                    res.status(700).send("Email already taken: Please Try again");
+                }
+                else {
+                    let encryptionData = encryptPassword(req.body.password);
+                    console.log("adding student user")
+                    let newStudent = new Student({
+                        name: name,
+                        email: email,
+                        password: encryptionData.password,
+                        salt: encryptionData.salt,
+                        tutorID: -1
+                      });
+                    return newStudent.save().then((result) => {
+                        res.end("Successfully added user.")
+                      }).catch((err) => {
+                        console.log(err)
+                        res.end("Failed to add used");
+                      });
+                }
+            });
         }
     }).catch((err) => {console.log(err)});
 });
@@ -286,8 +293,8 @@ app.post("/add/tutor/", (req, res) =>{
         if (result.length == 0) {
             res.end("FAILED_NO_STUDENT");
         }
-        else if (result.length > 1) {
-            res.end("FAILED_TOO_MANY");
+        else if (result[0].tutorID != -1) {
+            res.end("TUTOR_EXISTS");
         }
         else {
             let id = Math.floor(Math.random() * 10000000);
@@ -311,16 +318,17 @@ app.post("/add/coordinator/", (req, res) => {
         if (result.length == 0) {
             res.end("FAILED_NO_STUDENT");
         }
-        else if (result.length > 1) {
-            res.end("FAILED_TOO_MANY");
-        }
         else {
-            let tutorFind = Tutor.find({tutorID: result[0].tutorID}).exec();
+            let id = result[0].tutorID;
+            let tutorFind = Tutor.find({tutorID: id}).exec();
             tutorFind.then((results) => {
                 if (results.length == 0) {
                     res.end("FAILED_NO_STUDENT");
-                } else {
-                    let rank = Tutor.countDocuments({}).exec();
+                } else if (results[0].tutorCoordinationRank != -1) {
+                    res.end("EXISTS");
+                }
+                else {
+                    let rank = Tutor.countDocuments({tutorCoordinationRank: {$gt: -1}}).exec();
                     rank.then((num) => {
                         results[0].updateOne({tutorCoordinationRank: num}).exec();
                         res.end("SUCCESS");
@@ -338,9 +346,18 @@ app.post("/remove/tutor/", (req, res) => {
         if (student.length == 0) {res.end("FAILED_NO_STUDENT");}
         else {
             let id = student[0].tutorID;
-            student[0].updateOne({tutorID: -1}).exec();
-            Tutor.deleteOne({tutorID: id, tutorCoordinationRank: -1}).exec();
-            res.end("SUCCESS");
+            let del = Tutor.find({tutorID: id}).exec();
+            del.then((tutor) => {
+                if (tutor.length == 0) {
+                    res.end("FAILED_NO_STUDENT");
+                } else if (tutor[0].tutorCoordinationRank != -1) {
+                    res.end("COORD")
+                } else {
+                    student[0].updateOne({tutorID: -1}).exec();
+                    tutor[0].deleteOne({}).exec();
+                    res.end("SUCCESS");
+                }
+            });
         }
     });
 });
@@ -354,9 +371,9 @@ app.post("/remove/coordinator/", (req, res) => {
         else {
             let tutorFind = Tutor.find({tutorID: student[0].tutorID}).exec();
             tutorFind.then((tutor) => {
-                if (tutor.length == 0) {
+                if (tutor.length == 0 || tutor[0].tutorCoordinationRank < 0) {
                     res.end("FAILED_NO_STUDENT");
-                } else if (tutor[0].tutorCoordinationRank < rank) {
+                } else if (tutor[0].tutorCoordinationRank <= rank) {
                     res.end("UNAUTHORIZED");
                 } else {
                     tutor[0].updateOne({tutorCoordinationRank: -1}).exec();

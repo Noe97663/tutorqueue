@@ -67,9 +67,9 @@ function addStudentAccount(e){
     })
     request.then((result) => {
         if (result.status == 500) {
-            usernameBox.value = "";
-            let message = document.getElementById("failMessage");
-            message.innerText = "Username already exists. Please try a different Username."
+            alert("Username already taken. Please give a different username.");
+        } else if (result.status == 700) {
+            alert("An account with that email aleady exists. Try logging in.")
         } else {
         window.location.href = "login.html";
         }

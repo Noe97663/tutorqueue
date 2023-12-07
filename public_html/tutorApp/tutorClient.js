@@ -134,8 +134,8 @@ window.onload = function () {
 
 //Function is called when a TC creates a new Tutor
 function addNewTutor() {
-    console.log("clicked!");
-    let email = document.getElementById("tutorAdd").value;
+    let emailBox = document.getElementById("tutorAdd");
+    let email = emailBox.value;
     let p1 = fetch("/add/tutor/", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -145,20 +145,22 @@ function addNewTutor() {
         return res.text();
     }).then((text) => {
         if (text == "SUCCESS") {
-            alert("Added tutor, happy tooting.");
+            alert("Added Tutor successfully.");
         }
-        else if (text == "FAILED_TOO_MANY") {
-            alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
+        else if (text == "TUTOR_EXISTS") {
+            alert("A Tutor with this email already exists.");
         }
         else if (text == "FAILED_NO_STUDENT") {
-            alert("No student with that email found, please make an account.")
+            alert("No student with this email found, please make an account.")
         }
+        emailBox.value = "";
     });
 }
 
 //Function is used when TC creates new TC 
 function addNewCoordinator() {
-    let email = document.getElementById("tcAdd").value;
+    let emailBox = document.getElementById("tcAdd");
+    let email = emailBox.value;
     let p1 = fetch("/add/coordinator/", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -168,20 +170,22 @@ function addNewCoordinator() {
         return res.text();
     }).then((text) => {
         if (text == "SUCCESS") {
-            alert("Added coordinator, happy tooting.");
+            alert("Added Tutor Coordinator successfully.");
         }
         else if (text == "FAILED_NO_STUDENT") {
-            alert("The given email does not belong to a current tutor");
+            alert("This email does not belong to a current Tutor.");
         }
-        else if (text == "FAILED_TOO_MANY") {
-            alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
+        else if (text == "EXISTS") {
+            alert("A Tutor Coordinator with this email already exists.");
         }
+        emailBox.value = "";
     });
 }
 
 //Function is used when TC removes a tutor
 function removeTutor() {
-    let email = document.getElementById("tutorRemove").value;
+    let emailBox = document.getElementById("tutorRemove");
+    let email = emailBox.value;
     let p1 = fetch("/remove/tutor/", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -191,20 +195,22 @@ function removeTutor() {
         return res.text();
     }).then((text) => {
         if (text == "SUCCESS") {
-            alert("Removed tutor");
+            alert("Removed Tutor successfully.");
         }
-        else if (text == "NOT_A_TUTOR") {
-            alert("The given email does not belong to a current tutor or belongs to a Tutor Coordinator");
+        else if (text == "COORD") {
+            alert("This email belongs to a Tutor Coordinator.");
         }
         else if (text == "FAILED_NO_STUDENT") {
-            alert("No tutor with that email found.");
+            alert("This email does not belong to a current Tutor.");
         }
+        emailBox.value = "";
     });
 }
 
 //Function is used when TC removes a coordinator.
 function removeCoordinator() {
-    let email = document.getElementById("coordRemove").value;
+    let emailBox = document.getElementById("coordRemove");
+    let email = emailBox.value;
     let p = fetch("/get/rank/");
     p.then((response) => {
         return response.text();
@@ -218,14 +224,15 @@ function removeCoordinator() {
             return res.text();
         }).then((text) => {
             if (text == "SUCCESS") {
-                alert("Removed Tutor Coordinator");
+                alert("Removed Tutor Coordinator successfully.");
             }
             else if (text == "UNAUTHORIZED") {
-                alert("You are not authorized to remove this Tutor Coordinator");
+                alert("You are not authorized to remove this Tutor Coordinator.");
             }
             else if (text == "FAILED_NO_STUDENT") {
-                alert("No Tutor Coordinator with that email found.")
+                alert("This email does not belong to a current Tutor Coordinator.")
             }
+            emailBox.value = "";
         }); 
     });
 }
