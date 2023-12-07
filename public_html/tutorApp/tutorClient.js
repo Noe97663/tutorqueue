@@ -81,52 +81,121 @@ setInterval(createQueue(), 10000);
 setInterval(createHelping(), 10000);
 
 window.onload = function () {
+    checkTutorCoord();
     // get the tutorID to check if they have permission to add tutors
-    let p = fetch("/get/tutorID/");
-    p.then((result) => {
-        return result.text();
-    }).then((tid) => {
-        console.log(tid);
-        // if the tutor is an admin, create the add tutor form
-        if (tid == 0) {
-            let addTutor = document.createElement("div");
-            addTutor.id = "addTutorForm";
-
-            let form = document.createElement("form");
-
-            let emailInputBox = document.createElement("input");
-            emailInputBox.placeholder = "john@doe.com";
-            emailInputBox.id = "emailInput";
-
-            let button = document.createElement("input");
-            button.value = "Submit";
-            button.type = "submit";
-            button.onclick = function () {
-                console.log("clicked!");
-                let email = document.getElementById("emailInput").value;
-                let p1 = fetch("/add/tutor/", {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({"email": email}),
-                    });
-                p1.then((res) => {
-                    return res.text();
-                }).then((text) => {
-                    if (text == "SUCCESS") {
-                        alert("Added tutor, happy tooting.");
-                    }
-                    else if (text == "FAILED_TOO_MANY") {
-                        alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
-                    }
-                    else if (text == "FAILED_NO_STUDENT") {
-                        alert("No student with that email found, please make an account.")
-                    }
-                })
-            }
-            form.appendChild(emailInputBox);
-            form.appendChild(button);
-            addTutor.appendChild(form);
-            document.getElementById("mainDiv").appendChild(addTutor);
-        }
-    })
 }
+
+//Function is called when a TC creates a new Tutor
+function addNewTutor() {
+    console.log("clicked!");
+    let email = document.getElementById("tutorAdd").value;
+    let p1 = fetch("/add/tutor/", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"email": email}),
+    });
+    p1.then((res) => {
+        return res.text();
+    }).then((text) => {
+        if (text == "SUCCESS") {
+            alert("Added tutor, happy tooting.");
+        }
+        else if (text == "FAILED_TOO_MANY") {
+            alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
+        }
+        else if (text == "FAILED_NO_STUDENT") {
+            alert("No student with that email found, please make an account.")
+        }
+    });
+}
+
+//Function is used when TC creates new TC 
+function addNewCoordinator() {
+    let email = document.getElementById("tcAdd").value;
+    let p1 = fetch("/add/coordinator/", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"email": email}),
+    });
+    p1.then((res) => {
+        return res.text();
+    }).then((text) => {
+        if (text == "SUCCESS") {
+            alert("Added coordinator, happy tooting.");
+        }
+        else if (text == "FAILED_NO_STUDENT") {
+            alert("The given email does not belong to a current tutor");
+        }
+        else if (text == "FAILED_TOO_MANY") {
+            alert("Multiple students with the same email, contact your IT staff ASAP. This is never supposed to happen bruh.");
+        }
+    });
+}
+
+//Function is used when TC removes a tutor
+function removeTutor() {
+    let email = document.getElementById("tutorRemove").value;
+    let p1 = fetch("/remove/tutor/", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"email": email}),
+    });
+    p1.then((res) => {
+        return res.text();
+    }).then((text) => {
+        if (text == "SUCCESS") {
+            alert("Removed tutor");
+        }
+        else if (text == "NOT_A_TUTOR") {
+            alert("The given email does not belong to a current tutor or belongs to a Tutor Coordinator");
+        }
+        else if (text == "FAILED_NO_STUDENT") {
+            alert("No tutor with that email found.");
+        }
+    });
+}
+
+//Function is used when TC removes a coordinator.
+function removeCoordinator() {
+    let email = document.getElementById("coordRemove").value;
+    let p = fetch("/get/rank/");
+    p.then((response) => {
+        return response.text();
+    }).then((rank) => {
+        let p1 = fetch("/remove/coordinator/", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({"email": email, "rank": rank}),
+        });
+        p1.then((res) => {
+            return res.text();
+        }).then((text) => {
+            if (text == "SUCCESS") {
+                alert("Removed Tutor Coordinator");
+            }
+            else if (text == "UNAUTHORIZED") {
+                alert("You are not authorized to remove this Tutor Coordinator");
+            }
+            else if (text == "FAILED_NO_STUDENT") {
+                alert("No Tutor Coordinator with that email found.")
+            }
+        }); 
+    });
+}
+
+    function checkTutorCoord() {
+        let isTutorCoord = fetch("/get/iscoord");
+        isTutorCoord.then((response) => {
+            return response.text();
+        }).then((result) => {
+            if (result == "true") {
+                let navBar = document.getElementById("navigationBar");
+                let addTutorLink = document.createElement("a");
+                addTutorLink.href = "./addTutors.html";
+                addTutorLink.className="navLink";
+                addTutorLink.id="tutorLink";
+                addTutorLink.innerHTML = "Add New Tutors";
+                navBar.appendChild(addTutorLink);
+            }
+        });
+    }
