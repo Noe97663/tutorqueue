@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Request Help</title>
-        <link rel="stylesheet" type="text/css" href="student.css">
+        <link rel="stylesheet" type="text/css" href="studentOptions.css">
         <script src="studentClient.js"></script>
     </head>
     <body>
@@ -18,25 +18,29 @@
         </div>
         
         <div id="mainDiv" class="mainDiv">
-            <br><br>
-            <div class="studentOptions">
-                <a href="https://www.google.com/fbx?fbx=snake_arcade" id="playSnake" target="_blank">
-                    Click here 
-                </a>
-                to play Snake while you wait!
+            
+            <div id="game">
+                    <div id="pregame">
+                    <label for="gamesSelect" id="gameLabel">Choose a game to play while you wait!</label>
+                    <select name="gamesSelect" id="gamesSelect" onchange="changeGame()">
+                        <optgroup label="Games">
+                            <option value="https://www.lumpty.com/amusements/Games/Tetris/tetris.html">Tetris</option>
+                            <option value="https://js13kgames.com/games/super-castle-game/index.html">Blocks</option>
+                            <option value="https://patorjk.com/games/snake/">Snake</option>
+                            <option value="https://play2048.co/">2048</option>
+                        </optgroup>
+                    </select>
+                    </div>
+                    
+                    <embed src="https://www.lumpty.com/amusements/Games/Tetris/tetris.html" id="gameEmbedding">
+                        
             </div>
-            <br><br>
-            <div class="studentOptions">Don't want to play? See where you are at in the 
-                <a href="./studentHome.html"> Queue</a>
+            <div class="studentOptions" id="peek">Bored of the games? See where you are in the 
+                <a href="./studentHome.html" id="queueLinkSecond"> queue</a>.
             </div>
-            <br><br>
-            <div class="studentOptions">
-                Have to go? Fixed your bug? You can remove yourself from the queue by 
-                clicking the button below.
-            </div>
-            <br>
-            <div class="studentOptions">
-                <button id="studentLeave" onclick="selfRemoval()">Leave the Queue</button>
+            <div class="studentOptions" id="leave">
+                <div id="leaveText">Have to leave? Solved your issue? Click the button below to leave the queue.</div>
+                <button id="studentLeave" onclick="selfRemoval()">Leave Queue</button>
             </div>
         </div>
     </body>

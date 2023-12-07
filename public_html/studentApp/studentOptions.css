@@ -1,0 +1,175 @@
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+
+a {
+    color: rgb(15, 50, 120);
+    font-size: 30px;
+    font-size: 4.6vmin;
+    text-decoration: none;
+}
+
+select{
+    width:65px;
+    border-radius:15px;
+    font-weight: 700;
+    border: solid 1px black;
+    background-color: rgb(15, 50, 120);
+    color: white;
+}
+
+.siteBanner {
+    position: absolute;
+    top: 0%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 15%;
+    margin: auto;
+    background-color: white;
+}
+
+.navigationBar {
+    position: relative;
+    top: 10%;
+    height: 15%;
+    background-color: rgb(160, 3, 3)
+}
+
+.navLink {
+    color: white;
+    text-decoration: none;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 200px;
+    font-size: 30px;
+    font-size: 4.6vmin;
+    vertical-align: text-top;
+}
+
+
+.pageTitle{
+    color: rgb(15, 50, 120);
+}
+
+.mainDiv {
+    display: block;
+    top: 21.5%;
+    width: 100%;
+    height: 78%;
+    position: absolute;
+    bottom: 0px;
+    color: black;
+    text-align: center;
+}
+
+.siteLogo {
+    height: 100%;
+}
+
+
+
+.studentOptions {
+    text-align: center;
+    font-size: larger;
+}
+
+#pregame{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#game{
+    text-align: center;
+    height:70%;
+}
+
+#gameEmbedding{
+    width: 95%;
+    height: 90%;
+    border: 2px solid rgb(160, 3, 3);
+}
+
+#gameLabel{
+    color: black;
+}
+
+#gameSelect{
+    height:100%;
+    border-radius: 10px;
+}
+
+#navigationBar {
+    position: absolute;
+    top: 15%;
+    height: 6.5%;
+    width: 100%;
+    background-color: rgb(160, 3, 3);
+    padding:0px;
+}
+
+
+#queueSide{
+    position: absolute;
+    left:50%;
+    right: 0%;
+    width: 50%;
+    height: 100%;
+}
+
+#queueLiveView{
+    height: 75%;
+}
+
+#queueViewArea{
+    overflow-y: auto;
+}
+
+#queueOptions{
+    position: absolute;
+    height:10%;
+    bottom:15%;
+}
+
+
+
+#failMessage {
+    color: red;
+}
+
+#studentLeave {
+    border-radius: 20px;
+    border: solid black 2px;
+    background: rgb(15, 50, 120);
+    padding: 10px;
+    width: 115px;
+    color: white;
+    line-height: 1px;
+}
+
+
+#leave{
+    font-size: 15px;
+}
+
+#leaveText{
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+
+#peek{
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#queueLinkSecond{
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+

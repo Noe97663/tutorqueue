@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <title>Student Queue Home</title>
-        <link rel="stylesheet" type="text/css" href="student.css">
+        <link rel="stylesheet" type="text/css" href="studentHome.css">
         <script src="studentClient.js"></script>
     </head>
     <body>
@@ -29,20 +29,6 @@
 
             <div id="mainDiv" class="mainDiv">
                 <h1 class="pageTitle">Queue Home</h1>
-                <div id="waitArea">
-                    <label for="gamesSelect" class="optionLabel">Choose a game to play while you wait!</label>
-                    <select name="gamesSelect" id="gamesSelect" onchange="changeGame()">
-                        <optgroup label="Games">
-                            <option value="https://patorjk.com/games/snake/">Snake</option>
-                            <option value="https://js13kgames.com/games/super-castle-game/index.html">Blocks</option>
-                            <option value="https://play2048.co/">2048</option>
-                            <option value="https://www.lumpty.com/amusements/Games/Tetris/tetris.html">Tetris</option>
-                        </optgroup>
-                    </select>
-                    
-                    <embed src="https://patorjk.com/games/snake/" id="gameEmbedding" class="gameView">
-                        
-                </div>
                 <div id="queueSide">
                     <div id="queueLiveView">
                         <div id="queueViewArea">

@@ -78,16 +78,8 @@ h2 {
     height: 15%;
     margin: auto;
     background-color: white;
-    color: rgb(15, 50, 120);
 }
 
-#navigationBar {
-    position: absolute;
-    top: 15%;
-    height: 6.5%;
-    width: 100%;
-    background-color: rgb(160, 3, 3)
-}
 
 .navLink {
     color: white;
@@ -97,6 +89,7 @@ h2 {
     width: 200px;
     font-size: 30px;
     font-size: 4.6vmin;
+    vertical-align: text-top;
 }
 
 .pageTitle {
@@ -125,6 +118,15 @@ h2 {
 .navOption {
     color: black;
     
+}
+
+#navigationBar {
+    position: absolute;
+    top: 15%;
+    height: 6.5%;
+    width: 100%;
+    background-color: rgb(160, 3, 3);
+    padding:0px;
 }
 
 #createAccountButton {
