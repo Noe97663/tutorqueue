@@ -1,5 +1,16 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose:Style for the student options page, which will show the embedded game view as the dominant element of the screen.
+        Uniform style and size with other pages, including navigation bar, header, fonts and color theme. Game view extends 
+        screen width and has border, and selectable buttons have blue color like other pages.
+*/
+
 body {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px;
     background-color: aliceblue;
     overflow: hidden;
@@ -12,9 +23,9 @@ a {
     text-decoration: none;
 }
 
-select{
-    width:65px;
-    border-radius:15px;
+select {
+    width: 65px;
+    border-radius: 15px;
     font-weight: 700;
     border: solid 1px black;
     background-color: rgb(15, 50, 120);
@@ -50,8 +61,7 @@ select{
     vertical-align: text-top;
 }
 
-
-.pageTitle{
+.pageTitle {
     color: rgb(15, 50, 120);
 }
 
@@ -70,36 +80,34 @@ select{
     height: 100%;
 }
 
-
-
 .studentOptions {
     text-align: center;
     font-size: larger;
 }
 
-#pregame{
+#pregame {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#game{
+#game {
     text-align: center;
-    height:70%;
+    height: 70%;
     margin-bottom: 25px;
 }
 
-#gameEmbedding{
+#gameEmbedding {
     width: 95%;
     height: 90%;
     border: 2px solid rgb(160, 3, 3);
 }
 
-#gameLabel{
+#gameLabel {
     color: black;
 }
 
-#gameSelect{
-    height:100%;
+#gameSelect {
+    height: 100%;
     border-radius: 10px;
 }
 
@@ -109,33 +117,30 @@ select{
     height: 6.5%;
     width: 100%;
     background-color: rgb(160, 3, 3);
-    padding:0px;
+    padding: 0px;
 }
 
-
-#queueSide{
+#queueSide {
     position: absolute;
-    left:50%;
+    left: 50%;
     right: 0%;
     width: 50%;
     height: 100%;
 }
 
-#queueLiveView{
+#queueLiveView {
     height: 75%;
 }
 
-#queueViewArea{
+#queueViewArea {
     overflow-y: auto;
 }
 
-#queueOptions{
+#queueOptions {
     position: absolute;
-    height:10%;
-    bottom:15%;
+    height: 10%;
+    bottom: 15%;
 }
-
-
 
 #failMessage {
     color: red;
@@ -151,26 +156,24 @@ select{
     line-height: 1px;
 }
 
-
-#leave{
+#leave {
     font-size: 15px;
 }
 
-#leaveText{
+#leaveText {
     margin-top: 1.5vh;
     margin-bottom: 1.5vh;
 }
 
-#peek{
+#peek {
     font-size: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#queueLinkSecond{
+#queueLinkSecond {
     font-size: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-decoration: underline;
 }
-

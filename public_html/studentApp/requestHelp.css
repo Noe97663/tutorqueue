@@ -1,3 +1,13 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Style for request help page, which will show a simple dropdown and text box for creating queue requests
+        Follows App theme UA color scheme and same button shapes/fonts as rest of app.
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +24,6 @@ body {
     background-color: aliceblue;
     overflow-x: hidden;
 }
-
 
 a {
     color: rgb(15, 50, 120);
@@ -74,9 +83,9 @@ h2 {
     margin-bottom: 10px;
 }
 
-select{
-    width:125px;
-    border-radius:15px;
+select {
+    width: 125px;
+    border-radius: 15px;
     font-weight: 700;
     border: solid 1px black;
     background-color: rgb(15, 50, 120);
@@ -89,6 +98,7 @@ select{
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
 .siteBanner {
     position: absolute;
     top: 0%;
@@ -118,6 +128,7 @@ select{
     color: rgb(15, 50, 120);
     margin: auto;
 }
+
 .siteLogo {
     height: 100%;
 }
@@ -136,14 +147,13 @@ select{
     margin-top: 12px;
 }
 
-
 .siteLogo {
     height: 100%;
 }
 
 .navOption {
     color: black;
-    
+
 }
 
 #navigationBar {

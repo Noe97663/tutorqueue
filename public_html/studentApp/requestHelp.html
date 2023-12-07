@@ -1,47 +1,54 @@
+<!-- 
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: This is the help page which includes a short message about requesting tutor help, a selection combo box for
+        The desired course, and a textbox to enter a description of the problem for TAs to view. Has a submit button to 
+        submit the request form
+-->
+
 <!DOCTYPE html>
 
-<html>
-    <head>
-        <title>Request Help</title>
-        <link rel="stylesheet" type="text/css" href="requestHelp.css">
-        <script src="studentClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
-        </div>
-        <div class="navigationBar" id="navigationBar">
-            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
-            <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
-            <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
-        </div>
-        
-        <div id="mainDiv" class="mainDiv">
-            <h1 class="pageTitle">Request Help</h1>
-            <h2>(Please enter your information and then take a seat, someone will help you shortly)</h2>
-            <form id="askForHelpForm">
-                <!--
-                <label for="name">Name</label><br>
-                <input type="text" name="name" id="name"><br>
-                <label for="email">Email</label><br>
-                <input type="email" id="email" name="email"><br>
-                -->
-                <div class="inputLabel"><label  for="course">What course do you want tutoring for?</label>
+<html lang="en">
+
+<head>
+    <title>Request Help</title>
+    <link rel="stylesheet" type="text/css" href="requestHelp.css">
+    <script src="studentClient.js"></script>
+</head>
+
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+        <h1 class="siteHeader"></h1>
+    </div>
+    <div class="navigationBar" id="navigationBar">
+        <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+        <a href="requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+        <a href="studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+    </div>
+
+    <div id="mainDiv" class="mainDiv">
+        <h1 class="pageTitle">Request Help</h1>
+        <h2>(Please enter your information and then take a seat, someone will help you shortly)</h2>
+        <form id="askForHelpForm">
+            <div class="inputLabel"><label for="course">What course do you want tutoring for?</label>
                 <select id="course" name="course">
                     <option value="CSC110">CSC 110</option>
                     <option value="CSC120">CSC 120</option>
                     <option value="CSC210">CSC 210</option>
                     <option value="CSC144">CSC 144</option>
                     <option value="CSC244">CSC 244</option>
-                </select></div>
-                <div class="inputLabel"><label for="description">Description:</label></div>
-                <textarea id="description" name="description" rows="4" cols="50" placeholder="Please enter a brief description of your problem."></textarea></br>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        
+                </select>
+            </div>
+            <div class="inputLabel"><label for="description">Description:</label></div>
+            <textarea id="description" name="description" rows="4" cols="50"
+                placeholder="Please enter a brief description of your problem."></textarea></br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
 
-        
-    </body>
 </html>

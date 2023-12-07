@@ -1,40 +1,47 @@
-<!--
-    Final for CSC 337: Tutor Queue Site
-        Names: Skyler DeVaughn and Kyle Walker
-        Purpose: This page serves as the tutor home where they can respond to student requests
+<!-- 
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Tutor home which displays a live queue and helping section. By default, these are empty but are dynamically populated
+        by client when new queue items are added. Tutor queue view also has extra controls for help buttons
 -->
 
 <!DOCTYPE html>
 
-<html lang = "en">
-    <head>
-        <meta charset="utf-8">
-        <title>Tutor Home</title>
-        <link rel="stylesheet" type="text/css" href="tutorStyle.css">
-        <script src="tutorClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tutor Home</title>
+    <link rel="stylesheet" type="text/css" href="tutorStyle.css">
+    <script src="tutorClient.js"></script>
+</head>
+
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+        <h1 class="siteHeader"></h1>
+    </div>
+    <div class="navigationBar" id="navigationBar">
+        <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+        <a href="../studentApp/requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+        <a href="../studentApp/studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+        <a href="tutorHome.html" class="navLink" id="tutorLink">Tutor Center</a>
+    </div>
+
+    <div id="mainDiv" class="mainDiv">
+        <h1 class="pageTitle">Tutor Center</h1>
+        <div id="tutorQueueSection">
+            <h3></h3>
+            <div id="tutorQueue"></div>
         </div>
-        <div class="navigationBar" id="navigationBar">
-            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
-            <a href="../studentApp/requestHelp.html" class="navLink" id="helpLink">Request Help</a>
-            <a href="../studentApp/studentHome.html" class="navLink" id="queueLink">Queue Home</a>
-            <a href="tutorHome.html" class="navLink" id="tutorLink">Tutor Center</a>
+        <div id="tutorHelpingSection">
+            <div id="helping"></div>
         </div>
 
-        <div id="mainDiv" class="mainDiv">
-            <h1 class="pageTitle">Tutor Center</h1>
-            <div id="tutorQueueSection">
-                <h3></h3>
-                <div id="tutorQueue"></div>
-            </div>
-            <div id="tutorHelpingSection">
-                <div id="helping"></div>
-            </div>
-                
-        </div>
-    </body>
+    </div>
+</body>
+
 </html>
