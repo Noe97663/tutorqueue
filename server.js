@@ -199,6 +199,7 @@ app.get("/remove/queue/:email/:tEmail", (req, res) => {
     let tutorEmail = req.params.tEmail;
     const addTutor = {
         $set: {
+            time: Date.now(),
             tutor: tutorEmail,
             status:"In Progress"
         }
@@ -225,15 +226,17 @@ app.get("/remove/queueitem/:studentEmail", (req, res) => {
     p.then((response) => {
         res.end("removed");
     }).catch((err) => {console.log(err);});
+    let time = Date.now()
+    QueueItem.updateOne({studentEmail: email, status: "open"}, [{"$set": {"status": "removed", "time":"$time-time"}}]);
 });
 
 /** Returns JSON array of all student items, which TC can use to choose tutors */
-app.get("/get/students/", (req, res) =>{
+app.get("/get/students/", (req, res) => {
 
 });
 
 /** Returns JSON array of all tutor items */
-app.get("/get/tutors/", (req, res) =>{
+app.get("/get/tutors/", (req, res) => {
 
 });
 
@@ -404,18 +407,45 @@ app.get("/student/check/queue", (req, res) => {
 
 // this changed the ticket status in the db to "done" 
 app.get("/finish/help/:studentEmail", (req, res) => {
-    const finishSession = {
-        $set: {
-            status:"done"
-        }
-    }
-    let p = QueueItem.updateOne({studentEmail: req.params.studentEmail, status:"In Progress"},  finishSession).exec();
+    let p = QueueItem.findOne({studentEmail: req.params.studentEmail, status:"In Progress"}).exec();
     p.then((res) => {
-        console.log("successfully ended tutor session");
+        console.log(res.time);
+        return [res.time, res.course];
+    }).then((info) => {
+        let newTime = Date.now() - info[0];
+        console.log(newTime);
+        const finishSession = {
+            $set: {
+                status: "done",
+                time: newTime,
+            }
+        }
+        let p1 = QueueItem.updateOne({studentEmail: req.params.studentEmail, status:"In Progress"}, finishSession).exec();
+        p1.then((res) => {
+            console.log("removed");
+        });
+        let p2 = Tutor.findOne({tutorID: req.cookies.login.tid}).exec();
+        p2.then((res) => {
+            console.log(res.helpInfo);
+            return res.helpInfo;
+        }).then((helpInfo) => {
+            if (helpInfo[info[1]] == undefined) {
+                helpInfo[info[0]] = newTime
+            }
+            else {
+                helpInfo[info[0]] += newTime;
+            }
+            console.log(helpInfo);
+            let p3 = Tutor.updateOne({tutorID: req.cookies.login.tid}, {$set:{helpInfo: helpInfo}});
+            p3.then((res) => {
+                console.log("added helptime");
+            })
+        })
     })
     p.catch((err) => {
         console.log(err);
     })
+    
 })
 
 // gets the QueueItems that a tutor is currently helping

@@ -7,7 +7,7 @@ function createQueue() {
   }).then((response) => {
     console.log(response);
     let tq = document.getElementById("tutorQueue");
-    for (let i = response.length - 1; i >= 0; i--) {
+    for (let i = 0; i < response.length; i++) {
       // Get response data from item
       let student = response[i].student;
       let time = response[i].time;
@@ -74,8 +74,13 @@ console.log("Adding to helped...");
   p.then((res) => {
     return res.json();
   }).then((res) => {
+    if (res.length != 0) {
+        var helpDiv = document.getElementById("tutorHelpingSection");
+        let helpHeader = document.createElement("p");
+        helpHeader.innerHTML = "Currently Helping";
+        helpDiv.appendChild(helpHeader);
+    }
     for (let i = 0; i < res.length; i++) {
-      let helpDiv = document.getElementById("helping");
       let curHelp = document.createElement("div");
       curHelp.innerHTML =
         res[i].student + " " + res[i].course + " " + res[i].description;
@@ -112,11 +117,13 @@ function handleClick(param) {
 }
 
 function handleDoneClick(param) {
+  console.log(param.id);
   let p = fetch("/finish/help/" + param.id);
   p.then((res) => {
     return res.text();
   }).then((resText) => {
     if (resText == "SUCCESS") {
+      console.log(param.id);
       document.getElementById(param.id).remove();
     }
   });
