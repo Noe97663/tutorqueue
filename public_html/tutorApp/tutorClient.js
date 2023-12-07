@@ -21,9 +21,8 @@ function createQueue() {
   }).then((response) => {
     console.log(response);
     let tq = document.getElementById("tutorQueue");
-    // For all queueitems in result, add queue item to DOM
-    for (let i = response.length - 1; i >= 0; i--) {
-      // Get response data from items
+    for (let i = 0; i < response.length; i++) {
+      // Get response data from item
       let student = response[i].student;
       let time = response[i].time;
       let date = new Date();
@@ -94,8 +93,13 @@ function createHelping() {
   p.then((res) => {
     return res.json();
   }).then((res) => {
+    if (res.length != 0) {
+        var helpDiv = document.getElementById("tutorHelpingSection");
+        let helpHeader = document.createElement("p");
+        helpHeader.innerHTML = "Currently Helping";
+        helpDiv.appendChild(helpHeader);
+    }
     for (let i = 0; i < res.length; i++) {
-      let helpDiv = document.getElementById("helping");
       let curHelp = document.createElement("div");
       curHelp.innerHTML =
         res[i].student + " " + res[i].course + " " + res[i].description;
@@ -142,11 +146,13 @@ function handleClick(param) {
  * @param {*} param Reference to the caller button, which stores corresponding ID to student session
  */
 function handleDoneClick(param) {
+  console.log(param.id);
   let p = fetch("/finish/help/" + param.id);
   p.then((res) => {
     return res.text();
   }).then((resText) => {
     if (resText == "SUCCESS") {
+      console.log(param.id);
       document.getElementById(param.id).remove();
     }
   });
