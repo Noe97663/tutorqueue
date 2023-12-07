@@ -5,16 +5,39 @@ body {
     overflow-x: hidden;
 }
 
+a{
+    color:rgb(15, 50, 120);
+    text-decoration: none;
+}
+
+h2{
+    color:rgb(15, 50, 120);
+}
+
+input {
+    border-radius: 10px;
+    border: solid rgb(15, 50, 120) 2px;
+    background: white;
+    width: 300px;
+    height: 15px;
+    color: black;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+
+
+
 .siteBanner {
-    position: relative;
+    position: absolute;
     top: 0%;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 10%;
+    height: 15%;
     margin: auto;
     background-color: white;
-    color: rgb(15, 50, 120);
 }
 
 .navigationBar {
@@ -25,58 +48,29 @@ body {
 }
 
 .navLink {
-    color:white;
+    color: white;
     text-decoration: none;
     padding-left: 24px;
     padding-right: 24px;
-    font-size: 28px;
     width: 200px;
-}
-
-a{
-    color:rgb(15, 50, 120);
-    text-decoration: none;
+    font-size: 30px;
+    font-size: 4.6vmin;
+    vertical-align: text-top;
 }
 
 .pageTitle{
     color: rgb(15, 50, 120);
 }
 
-.mainDiv {
-    display: block;
-    margin: auto;
-    padding-left: 24px;
-    padding-right: 24px;
-    width: 100%;
-    height: 85%;
-    /*position: absolute;*/
-    bottom: 0px;
-    color:rgb(82, 82, 82)
-}
-
 .siteLogo {
-    height: 100px;
+    height: 100%;
 }
 
-#failMessage {
-    color: red;
-}
 
 .studentOptions {
     text-align: center;
     font-size: larger;
 }
-
-#studentLeave {
-    background-color: navy;
-    color:white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: larger;
-    padding: 5px;
-    opacity: .7;
-}
-
-
 
 .gameView{
     position: absolute;
@@ -88,11 +82,86 @@ a{
     border: 2px solid rgb(160, 3, 3);
 }
 
-#queueHome{
-    overflow: hidden;
+.inputDiv{
+    font-size: 25px;
+    color: rgb(45, 45, 45);
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
-#playSnake {
+
+.addButton{
+    border-radius: 20px;
+    border: solid black 2px;
+    background: rgb(15, 50, 120);
+    padding: 10px;
+    width: 150px;
+    color: white;
+    line-height: 1px;
+    margin-bottom: 10px;
+}
+
+.removeButton{
+    border-radius: 20px;
+    border: solid black 2px;
+    background: rgb(160, 3, 3);
+    padding: 10px;
+    width: 150px;
+    color: white;
+    line-height: 1px;
+    margin-bottom: 10px;
+}
+
+#mainDiv{
+    display: block;
+    padding-left: 24px;
+    padding-right: 24px;
+    top: 21.5%;
+    width: 100%;
+    height: 78%;
+    position: absolute;
+    bottom: 0px;
+    color: grey;
+    text-align: center;
+}
+#navigationBar {
+    position: absolute;
+    top: 15%;
+    height: 6.5%;
+    width: 100%;
+    background-color: rgb(160, 3, 3);
+    padding:0px;
+}
+
+#studentLeave {
+    background-color: navy;
+    color:white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+    padding: 5px;
+    opacity: .7;
+}
+
+#failMessage {
     color: red;
 }
 
+#queueHome{
+    overflow: hidden;
+}
+
+
+#addTutor{
+width: 120px;
+}
+
+#addCoordinator{
+    width: 160px;
+}
+#removeTutor{
+    width: 130px;
+}
+
+#removeCoordinator{
+    width: 170px;
+}
 

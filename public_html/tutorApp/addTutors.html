@@ -7,50 +7,62 @@
 
 <!DOCTYPE html>
 
-<html lang = "en">
-    <head>
-        <meta charset="utf-8">
-        <title>Add New Tutor</title>
-        <link rel="stylesheet" type="text/css" href="addTutors.css">
-        <script src="tutorClient.js"></script>
-    </head>
-    <body>
-        <div class="siteBanner">
-            <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
-            <h1 class="siteHeader"></h1>
-        </div>
-        <div class="navigationBar" id="navigationBar">
-            <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
-            <a href="../studentApp/requestHelp.html" class="navLink" id="helpLink">Request Help</a>
-            <a href="../studentApp/studentHome.html" class="navLink" id="queueLink">Queue Home</a>
-            <a href="tutorHome.html" class="navLink" id="tutorLink">Tutor Center</a>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Add New Tutor</title>
+    <link rel="stylesheet" type="text/css" href="addTutors.css">
+    <script src="tutorClient.js"></script>
+</head>
+
+<body>
+    <div class="siteBanner">
+        <img src="../img/UACollegeOfScienceLogo.png" alt="UA College of Science CS Logo" class="siteLogo">
+        <h1 class="siteHeader"></h1>
+    </div>
+    <div class="navigationBar" id="navigationBar">
+        <a href="../login/login.html" class="navLink" id="loginLink">Logout</a>
+        <a href="../studentApp/requestHelp.html" class="navLink" id="helpLink">Request Help</a>
+        <a href="../studentApp/studentHome.html" class="navLink" id="queueLink">Queue Home</a>
+        <a href="tutorHome.html" class="navLink" id="tutorLink">Tutor Center</a>
+    </div>
+
+    <div id="mainDiv">
+        <div class="inputDiv">
+            <h2>Tutor Management Forms</h2>
+            <div>
+                New Tutor Email:
+                <input type="email" id="tutorAdd" pattern="[a-z0-9]+@arizona.edu" required>
+            </div>
+            <button class="addButton" id="addTutor" onclick="addNewTutor()">Add New Tutor</button>
         </div>
 
-        <div>
-            Fill in the input fields with emails of tutors
-            Add new Tutor here:
-            <input type="email" id="tutorAdd" pattern="[a-z0-9]+@arizona.edu" required>
-            <button onclick="addNewTutor()">Add New Tutor</button>
-        </div>
-
-        <div>
-            Add new Tutor Coordinator here:
+        <div class="inputDiv">
+            <div>
+            New Tutor Coordinator Email:
             <input type="email" id="tcAdd" pattern="[a-z0-9]+@arizona.edu" required>
-            <button onclick="addNewCoordinator()">Add New Coordinator</button>
+        </div>
+            <button class="addButton" id="addCoordinator" onclick="addNewCoordinator()">Add New Coordinator</button>
         </div>
 
-        <div>
-            Remove Tutor here:
+        <div class="inputDiv">
+            <div>
+                Old Tutor Email:
             <input type="email" id="tutorRemove" pattern="[a-z0-9]+@arizona.edu" required>
-            <button onclick="removeTutor()">Remove Tutor</button>
+        </div>
+            <button class="removeButton" id="removeTutor"onclick="removeTutor()">Remove Tutor</button>
         </div>
 
-        <div>
-            Remove Tutor Coordinator here:
+        <div class="inputDiv">
+            <div>
+                Old Tutor Coordinator Email:
             <input type="email" id="coordRemove" pattern="[a-z0-9]+@arizona.edu" required>
-            <button onclick="removeCoordinator()">Remove Coordinator</button>
+        </div>
+            <button class="removeButton" id="removeCoordinator" onclick="removeCoordinator()">Remove Coordinator</button>
         </div>
 
-        </div>
-    </body>
+    </div>
+</body>
+
 </html>
