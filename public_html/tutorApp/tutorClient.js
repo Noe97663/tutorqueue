@@ -20,7 +20,7 @@ function createQueue() {
     return response.json();
   }).then((response) => {
     console.log(response);
-    let tq = document.getElementById("tutorQueue");
+    let tq = document.getElementById("queueViewArea");
     for (let i = 0; i < response.length; i++) {
       // Get response data from item
       let student = response[i].student;
@@ -94,7 +94,7 @@ function createHelping() {
     return res.json();
   }).then((res) => {
     if (res.length != 0) {
-        var helpDiv = document.getElementById("tutorHelpingSection");
+        var helpDiv = document.getElementById("helpViewArea");
         let helpHeader = document.createElement("p");
         helpHeader.innerHTML = "Currently Helping";
         helpDiv.appendChild(helpHeader);
@@ -138,6 +138,7 @@ function handleClick(param) {
       console.log(err);
     });
   });
+  location.reload();
 }
 
 /**
@@ -156,6 +157,7 @@ function handleDoneClick(param) {
       document.getElementById(param.id).remove();
     }
   });
+  location.reload();
 }
 
 function handleAddTutor() {}
