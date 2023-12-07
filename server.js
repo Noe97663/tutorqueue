@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Server address and port
-let ip = "127.0.0.1";
+let ip = "137.184.41.80";
 let port = "80";
 
 // Mongoose
