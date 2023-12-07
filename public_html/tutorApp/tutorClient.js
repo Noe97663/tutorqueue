@@ -15,7 +15,7 @@ Purpose: Client functionality for tutor pages. Has similar live queue view as th
  */
 function createQueue() {
   // Request to server for all queueitems in current queue
-  let p = fetch("/get/queue/");
+  let p = fetch("/get/queue/tutorhome");
   p.then((response) => {
     return response.json();
   }).then((response) => {
