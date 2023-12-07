@@ -2,4 +2,4 @@
 
 ## Admin
 - user: Admin
-- password: 1234
+- password: a
