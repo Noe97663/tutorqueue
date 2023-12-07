@@ -60,7 +60,7 @@ function authenticate(req, res, next) {
             res.redirect("/login/login.html");
         }
     } else {
-        console.log("failed auth because cookue is wack man");
+        console.log("failed auth because cookie is wack man");
         res.redirect("/login/login.html");
     }
 }
