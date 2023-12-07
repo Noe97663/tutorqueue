@@ -1,3 +1,13 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: This is the style sheet for the login page, which is styled to show an aniimated announcement banner and give users a simple
+        interface for logging in or creating accounts. Follows UA App theme with larger site logo and header, and Red and Blue colorway
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +24,6 @@ body {
     background-color: aliceblue;
     overflow-x: hidden;
 }
-
 
 a {
     color: rgb(15, 50, 120);
@@ -105,7 +114,6 @@ h2 {
     color: grey;
     text-align: center;
 }
-
 
 .siteLogo {
     height: 100%;

@@ -1,5 +1,16 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Style for tutor home queue view. Has class styles for queue elements that are dynamically appended, so that style 
+        will automaticaly be applied to newly created elements. Queue is shown vertically on one side with the helping panel on the
+        other
+*/
+
 body {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px;
     background-color: aliceblue;
     overflow: hidden;
@@ -16,6 +27,7 @@ a{
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
 .siteBanner {
     position: absolute;
     top: 0%;
@@ -53,9 +65,11 @@ a{
     color: rgb(15, 50, 120);
     margin: auto;
 }
+
 .siteLogo {
     height: 100%;
 }
+
 .mainDiv {
     display: block;
     top: 21.5%;
@@ -79,23 +93,23 @@ a{
     margin:6px;
     margin-right:30px;
 }
-.queueItemLabel{
+
+.queueItemLabel {
     margin: 4px;
     margin-right:5px;
 }
 
-
-#waitArea{
+#waitArea {
     position: absolute;
-    left:0%;
+    left: 0%;
     right: 50%;
     width: 50vw;
     height: 100%;
-    padding-left:24px;
+    padding-left: 24px;
     overflow: hidden;
 }
 
-#queueSide{
+#queueSide {
     position: absolute;
     left:1%;
     width: 98%;
@@ -108,7 +122,7 @@ a{
     height: 100%;
 }
 
-#queueViewArea{
+#queueViewArea {
     overflow-y: auto;
 }
 
@@ -121,7 +135,7 @@ a{
 }
 
 
-.gameView{
+.gameView {
     position: absolute;
     margin: auto;
     margin-left: 26px;
@@ -138,16 +152,17 @@ a{
 
 #studentLeave {
     background-color: navy;
-    color:white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: larger;
     padding: 5px;
     opacity: .7;
 }
 
-#queueHome{
+#queueHome {
     overflow: hidden;
 }
+
 #playSnake {
     color: red;
 }

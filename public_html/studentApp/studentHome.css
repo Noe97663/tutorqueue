@@ -1,5 +1,15 @@
+/**
+Authors: Joseph Cortez
+         Kyle Walker
+         Noel Poothokaran
+         Skyler DeVaughn
+Course: Csc 337 Webdev Benjamin Dicken Fall 2023
+Purpose: Style for Home Queue view, where the live queue items are displayed with all info. Queue items are displayed in blocks
+        with rows of properties. The button to leave is at the bottom. Follows app color theme and sizes
+*/
+
 body {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px;
     background-color: aliceblue;
     overflow: hidden;
@@ -49,7 +59,7 @@ h5{
     vertical-align: text-top;
 }
 
-.pageTitle{
+.pageTitle {
     color: rgb(15, 50, 120);
 }
 
@@ -98,17 +108,16 @@ h5{
     height: 6.5%;
     width: 100%;
     background-color: rgb(160, 3, 3);
-    padding:0px;
+    padding: 0px;
 }
 
-
-#waitArea{
+#waitArea {
     position: absolute;
-    left:0%;
+    left: 0%;
     right: 50%;
     width: 50%;
     height: 100%;
-    padding-left:24px;
+    padding-left: 24px;
     overflow: hidden;
 }
 
@@ -129,7 +138,7 @@ will Test
     height: 100%;
 }
 
-#queueViewArea{
+#queueViewArea {
     overflow-y: auto;
 }
 
@@ -142,7 +151,6 @@ above should take the rest of the page 63% (100 - 37)(7 from queueOptions,
     bottom:0%;
     left:45%;
 }
-
 
 #failMessage {
     color: red;
@@ -158,6 +166,6 @@ above should take the rest of the page 63% (100 - 37)(7 from queueOptions,
     line-height: 1px;
 }
 
-#queueHome{
+#queueHome {
     overflow: hidden;
 }
