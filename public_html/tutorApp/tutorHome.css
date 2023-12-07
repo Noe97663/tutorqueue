@@ -4,6 +4,12 @@ body {
     background-color: aliceblue;
     overflow: hidden;
 }
+
+a{
+    color:rgb(15, 50, 120);
+    text-decoration: none;
+}
+
 .inputLabel {
     font-size: 25px;
     color: rgb(45, 45, 45);
@@ -53,17 +59,10 @@ body {
     display: block;
     position: absolute;
     margin: auto;
-    padding-left: 24px;
-    padding-right: 24px;
     width: 100%;
     top:16.5%;
     bottom: 0%;
     color:rgb(82, 82, 82)
-}
-
-a{
-    color:rgb(15, 50, 120);
-    text-decoration: none;
 }
 
 .queueItem{
